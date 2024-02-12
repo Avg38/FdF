@@ -9,7 +9,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 		@ar rc $(NAME) $(OBJS)
 
-%.o:	%.c libft.h 
+%.o:	%.c include/fdf.h 
 	@gcc $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
