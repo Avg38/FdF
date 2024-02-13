@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Others
+/minilibx-linux
+/sources
+fdf
+fdf_linux

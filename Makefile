@@ -1,16 +1,25 @@
-SRCS	= srcs/main.c
+NAME	= fdf
+SRCS	= 	srcs/fdf.c\
+			srcs/draw.c\
+			srcs/hooks.c\
+			srcs/limits.c\
+			srcs/points.c\
+			srcs/start.c
+
 OBJS	= $(SRCS:.c=.o)
-NAME	= libft.a
 CFLAGS	= -Wall -Wextra -Werror
 RM	= rm -rf
 
-all:	$(NAME)
+all:	force $(NAME)
 
 $(NAME):	$(OBJS)
-		@ar rc $(NAME) $(OBJS)
+		gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS) -o $(NAME) -Llibft -lft
 
 %.o:	%.c include/fdf.h 
-	@gcc $(CFLAGS) -c $< -o $(<:.c=.o)
+	gcc $(CFLAGS) -c $< -o $@ -Iinclude -Ilibft
+
+force:
+	make -C libft
 
 clean:
 		$(RM) $(OBJS)
@@ -20,4 +29,4 @@ fclean:		clean
 
 re:		fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re force
