@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/13 15:05:08 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:29:11 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,21 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 
-# ifndef MAX_LINES
-#  define MAX_LINES 1000
-# endif
+# define DATA matrix[0][0]
+
+typedef struct s_map
+{
+	int		x;
+	int		y;
+	int		z;
+	int		color;
+	// int		scale;
+	// int		z_scale;
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_map;
+
+char	**ft_split_color(char *s);
+
 
 #endif
