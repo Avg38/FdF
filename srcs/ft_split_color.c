@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:15:17 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/21 13:47:40 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:56:28 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	**ft_split_color(char *s)
 {
 	char	**strs;
 	int		i;
-	int		j;
 
 	if (s == NULL)
 		return (NULL);
@@ -24,8 +23,7 @@ char	**ft_split_color(char *s)
 	if (!strs)
 		return (NULL);
 	i = 0;
-	j = 0;
-	if (strnstr(s, ",0x", 3))
+	if (ft_strnstr(s, ",0x", 3))
 	{
 		while (s[i] != ',')
 			i++;
