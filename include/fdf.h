@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/21 15:29:11 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:03:51 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ typedef struct s_map
 }	t_map;
 
 char	**ft_split_color(char *s);
+void	display_tab2d(char **s, int height);
+void	free2d(char **str);
+void	free_matrix(t_map **matrix);
+void	display_matrix(t_map **map, int len_height, int len_width);
+void	display_tab2d(char **s, int height);
+int		get_height(char *av);
+int		get_width(char *line);
+char	**line_parser(char *line);
+void	fill_matrix(char **line, t_map ***matrix, int width, int *y);
+void	set_size_matrix(t_map ***matrix, char *file, int *width, int *height);
 
 
 #endif

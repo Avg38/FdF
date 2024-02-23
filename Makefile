@@ -6,7 +6,7 @@
 #    By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 15:25:21 by avialle-          #+#    #+#              #
-#    Updated: 2024/02/21 15:32:54 by avialle-         ###   ########.fr        #
+#    Updated: 2024/02/23 18:37:40 by avialle-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,21 @@ NAME	=	fdf
 SRCS	=	srcs/main.c\
 			srcs/list.c\
 			srcs/errors.c\
+			srcs/display.c\
+			srcs/free.c\
+			srcs/map_parser.c\
 			srcs/ft_split_color.c
 
 OBJS	= $(SRCS:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror
 RM	= rm -rf
 
-all:	$(NAME)
+all:	force $(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) libft/libft.a
 		gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS) -o $(NAME) -Llibft -lft
 
-%.o:	%.c include/fdf.h
+%.o:	%.c include/fdf.h libft/libft.h Makefile libft/libft.a
 	gcc $(CFLAGS) -c $< -o $@
 
 force:
