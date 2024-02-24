@@ -40,6 +40,7 @@ void	display_tab2d(char **s, int height)
 	int	i;
 
 	i = -1;
-	while (++i < height)
-		ft_printf("%s", s[i]);
+	if (s)
+		while (++i < height)
+			ft_printf("%s", s[i]);
 }

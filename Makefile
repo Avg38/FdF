@@ -15,7 +15,6 @@
 NAME	=	fdf
 
 SRCS	=	srcs/main.c\
-			srcs/list.c\
 			srcs/errors.c\
 			srcs/display.c\
 			srcs/free.c\

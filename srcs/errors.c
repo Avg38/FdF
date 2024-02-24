@@ -12,72 +12,39 @@
 
 #include "../include/fdf.h"
 
-int	size_line(char *line)
+void	ft_exit(char *msg)
 {
-	unsigned int		len_line;
-	int					i;
-
-	i = 0;
-	len_line = 0;
-	while (line[i])
-	{
-		if (line[i] == ' ')
-			while (line[i] == ' ')
-				i++;
-		else if (ft_isdigit(line[i]) != 0 || line[i] == ','
-			|| line[i] == 'x' || line[i] == '\n')
-		{
-			len_line++;
-			while (ft_isdigit(line[i]) != 0 || line[i] == ','
-				|| line[i] == 'x' || line[i] == '\n')
-				i++;
-		}
-		else
-			return (-1);
-	}
-	return (len_line);
+	ft_printf("%s\n", msg);
+	exit(EXIT_FAILURE);
 }
 
-int	check_line_map(char *line, unsigned int len)
+void	free2d(char **str, int len)
 {
-	unsigned int		len_line;
-	int					i;
+	int	i;
 
-	len_line = 0;
 	i = 0;
-	while (line[i])
+	if (str)
 	{
-		if (line[i] == ' ')
-			while (line[i] == ' ')
-				i++;
-		else if (ft_isdigit(line[i]) != 0 || line[i] == ','
-			|| line[i] == 'x' || line[i] == '\n')
+		while (i < len)
 		{
-			len_line++;
-			while (ft_isdigit(line[i]) != 0 || line[i] == ','
-				|| line[i] == 'x' || line[i] == '\n')
-				i++;
+			free(str[i]);
+			i++;
 		}
-		else
-			return (-1);
+		free(str);
 	}
-	if (len_line != len)
-		return (-1);
-	return (0);
 }
 
-int	check_errors(char **map)
+void	free_matrix(t_map **matrix, int height)
 {
-	int				i;
-	unsigned int	len;
+	int	y;
 
-	i = 0;
-	len = size_line(map[i]);
-	while (map[i])
+	y = 0;
+	if (!matrix)
+		return ;
+	while (y < height)
 	{
-		if (check_line_map(map[i], len) == -1)
-			return (-1);
-		i++;
+		free(matrix[y]);
+		y++;
 	}
-	return (0);
+	free(matrix);
 }

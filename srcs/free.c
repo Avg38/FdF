@@ -12,34 +12,4 @@
 
 #include "../include/fdf.h"
 
-void	free2d(char **str)
-{
-	int	i;
 
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str);
-	}
-}
-
-void	free_matrix(t_map **matrix)
-{
-	int	i;
-
-	i = 0;
-	if (matrix)
-	{
-		while (matrix[i])
-		{
-			free(matrix[i]);
-			i++;
-		}
-		free(matrix);
-	}
-}

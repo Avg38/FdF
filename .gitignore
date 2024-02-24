@@ -57,3 +57,4 @@ dkms.conf
 /sources
 fdf
 fdf_linux
+.vscode/settings.json

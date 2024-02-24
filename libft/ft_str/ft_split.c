@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-static void	free_subs(char	**strs, size_t nb_subs)
+static void	free_subs(char **strs, size_t nb_subs)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ static void	free_subs(char	**strs, size_t nb_subs)
 	}
 }
 
-static int	count_subchain(char *s, char c)
+int	count_word(char *s, char c)
 {
 	unsigned int	count;
 	size_t			i;
@@ -100,11 +100,10 @@ char	**ft_split(char *s, char c)
 	char	**strs;
 	size_t	len_subchain;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
-	len_subchain = count_subchain((char *)s, c);
+	len_subchain = count_word((char *)s, c);
 	strs = (char **)malloc((len_subchain + 1) * sizeof(char *));
-	strs[len_subchain + 1] = NULL;
 	if (!strs)
 		return (NULL);
 	if (!create_strs(s, strs, c))
