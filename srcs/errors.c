@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:09:24 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 12:37:41 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:31:31 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,37 @@ void	height_width(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
 		ft_exit("Error bad fd or empy file", NULL, 0);
-	height = get_height(file);
+	get_height(file, &height);
 	if (height < 1)
 		return (close(fd), ft_exit("Error colunm size < 1", NULL, 0));
+	get_width(get_next_line(fd), &width);
+	if (width == 0)
+		return (close(fd), ft_exit("Error! Line size < 1", NULL, 0));
 	i = 1;
-	tmp = get_width(get_next_line(fd));
-	if (tmp == 0)
-		return (close(fd), ft_exit("Error line size < 1", NULL, 0));
 	while (i < height)
 	{
-		width = get_width(get_next_line(fd));
-		if (!width || width != tmp)
-			return (close(fd), ft_exit("Error line size", NULL, 0));
+		get_width(get_next_line(fd), &tmp);
+		if (!tmp || tmp != width)
+			return (close(fd), ft_exit("Error! Line size", NULL, 0));
 		i++;
 	}
 	close(fd);
+}
+
+void	is_error(int ac, char *file)
+{
+	int	fd;
+
+	if (ac == 2)
+	{
+		if (!ft_strnstr(file, ".fdf", 4))
+			ft_exit("Error! \".fdf\" is needed", NULL, 0);
+		fd = open(file, O_RDONLY);
+		if (fd < 1)
+			ft_exit("Error! Bad fd or file empty", NULL, 0);
+		close(fd);
+		height_width(file);
+	}
+	else
+		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);
 }

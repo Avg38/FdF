@@ -6,11 +6,18 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 11:40:17 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:20:39 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+// void	set_data(t_map **matrix)
+// {
+// 	DATA.mlx_ptr = mlx_init();
+// 	DATA.win_ptr = mlx_new_window(DATA.mlx_ptr, 800, 600, "Example");
+
+// }
 
 void	fdf(char *file)
 {
@@ -27,32 +34,23 @@ void	fdf(char *file)
 	if (!matrix)
 		ft_exit("Error malloc matrix", NULL, 0);
 	fd = open(file, O_RDONLY);
-	if (fd <= 0)
+	if (fd < 1)
 		ft_exit("Error! Bad fd or file empty", matrix, height);
-	y = 0;
-	while (y < height)
+	y = -1;
+	while (++y < height)
 		fill_matrix(line_parser(get_next_line(fd)), matrix, width, &y);
+	// set_data(matrix);
+	// mlx_loop(DATA.mlx_ptr);
 	close(fd);
 	// display_matrix(matrix, height, width);
 	free_matrix(matrix, height);
 }
 
+
+
 int	main(int ac, char **av)
 {
-	int	fd;
-
-	if (ac == 2)
-	{
-		if (!ft_strnstr(av[1], ".fdf", 4))
-			ft_exit("Error! \".fdf\" is needed", NULL, 0);
-		fd = open(av[1], O_RDONLY);
-		if (fd <= 0)
-			ft_exit("Error! Bad fd or file empty", NULL, 0);
-		close(fd);
-		height_width(av[1]);
-		fdf(av[1]);
-	}
-	else
-		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);
+	is_error(ac, av[1]);
+	fdf(av[1]);
 	return (0);
 }

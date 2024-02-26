@@ -6,54 +6,48 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:31:00 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 12:37:11 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:30:34 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	get_height(char *file)
+void	get_height(char *file, int *height)
 {
 	int		fd;
-	int		i;
 	char	*line;
 
-	if (!file)
-		return (-1);
-	i = 0;
+	*height = 0;
 	fd = open(file, O_RDONLY);
-	if (fd <= 0)
-		return (-1);
+	if (fd < 1)
+		ft_exit("Error! Bad fd or empty file", NULL, 0);
 	line = get_next_line(fd);
 	while (line)
 	{
-		i++;
+		(*height)++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
 	close(fd);
-	return (i);
 }
 
-int	get_width(char *line)
+void	get_width(char *line, int *width)
 {
 	int				i;
-	unsigned int	count;
 
 	if (!line)
-		return (-1);
+		return ;
 	i = 0;
-	count = 0;
+	(*width) = 0;
 	while (line[i])
 	{
 		if (line[i] && line[i] != '\n'
 			&& line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
-			count++;
+			(*width)++;
 		i++;
 	}
 	free(line);
-	return (count);
 }
 
 char	**line_parser(char *line)
@@ -100,22 +94,21 @@ t_map	**set_size_matrix(char *file, int *width, int *height)
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
 		return (ft_exit("Error bad fd or empty file", NULL, 0), NULL);
-	*width = get_width(get_next_line(fd));
+	get_width(get_next_line(fd), width);
 	close(fd);
-	*height = get_height(file);
+	get_height(file, height);
 	if (*width <= 0 || *height <= 0)
 		return (ft_exit("get_width or get_height doesn't work", NULL, 0), NULL);
 	matrix = (t_map **)malloc(*height * sizeof(t_map *));
 	if (!matrix)
 		return (NULL);
-	y = 0;
-	while (y < *height)
+	y = -1;
+	while (++y < *height)
 	{
 		matrix[y] = (t_map *)malloc(*width * sizeof(t_map));
 		if (!matrix[y])
 			return (free_matrix(matrix, y),
 				ft_exit("get_width or get_height doesn't work", NULL, 0), NULL);
-		y++;
 	}
 	return (matrix);
 }
