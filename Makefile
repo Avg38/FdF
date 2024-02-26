@@ -6,7 +6,7 @@
 #    By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 15:25:21 by avialle-          #+#    #+#              #
-#    Updated: 2024/02/23 18:37:40 by avialle-         ###   ########.fr        #
+#    Updated: 2024/02/26 10:30:38 by avialle-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ NAME	=	fdf
 SRCS	=	srcs/main.c\
 			srcs/errors.c\
 			srcs/display.c\
-			srcs/free.c\
 			srcs/map_parser.c\
 			srcs/ft_split_color.c
 

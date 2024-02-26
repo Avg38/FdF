@@ -6,54 +6,54 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:15:17 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/23 19:08:07 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:27:28 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-char	*extract_first_part(char *s, int *i) {
-	int j;
-	int k;
-	
+char	**extract_first_part(char *s, int *i)
+{
+	int		j;
+	int		k;
+	char	**strs;
+
+	strs = (char **)malloc(2 * sizeof(char *));
+	if (!strs)
+		return (NULL);
 	j = 0;
-	k = 0;
+	k = -1;
 	while (s[j] && s[j] != ',')
 		j++;
-	char *result = (char *)malloc((j + 1) * sizeof(char));
-	if (!result)
+	strs[0] = (char *)malloc((j + 1) * sizeof(char));
+	if (!strs[0])
 		return (NULL);
-	while (k < j) {
-		result[k] = s[k];
-		k++;
-	}
-	result[j] = 0;
+	while (++k < j)
+		strs[0][k] = s[k];
+	strs[0][j] = 0;
 	*i = 0;
 	while (s[*i] && s[*i] != ',')
 		(*i)++;
 	(*i) += 2;
-	return (result);
+	return (strs);
 }
 
 char	**ft_split_color(char *s)
 {
 	char	**strs;
 	int		i;
-	int 	j;
+	int		j;
 
 	if (!s)
 		return (NULL);
-	strs = (char **)malloc(2 * sizeof(char *));
-	if (!strs)
-		return (NULL);
-	strs[0] = extract_first_part(s, &i);
-	if (!strs[0])
-		return (free(strs), NULL);
+	strs = extract_first_part(s, &i);
+	if (!strs || !strs[0])
+		return (free_2d(strs, 1), NULL);
 	if (ft_strnstr(s, ",0x", 3))
 	{
 		strs[1] = (char *)malloc((ft_strlen(s) - i + 1) * sizeof(char));
 		if (!strs[1])
-			return (free2d(strs, 2), NULL);
+			return (free_2d(strs, 2), NULL);
 		j = 0;
 		while (s[++i])
 		{
@@ -66,36 +66,3 @@ char	**ft_split_color(char *s)
 		strs[1] = NULL;
 	return (strs);
 }
-
-
-// char **ft_split_color(char *s)
-// {
-//     char **strs;
-//     int i;
-
-//     if (!s)
-//         return (NULL);
-//     strs = (char **)malloc(2 * sizeof(char *));
-//     if (!strs)
-//         return (NULL);
-//     strs[0] = extract_first_part(s, &i);
-//     if (!strs[0])
-//         return (free(strs), NULL);
-//     if (ft_strnstr(s, ",0x", 3))
-//     {
-//         strs[1] = (char *)malloc((ft_strlen(s) - i + 1) * sizeof(char));
-//         if (!strs[1])
-//             return (free(strs[0]), free(strs), NULL);
-//         int j = 0;
-//         while (s[i])
-//         {
-//             strs[1][j] = s[i];
-//             i++;
-//             j++;
-//         }
-//         strs[1][j] = '\0'; // Ajout du caractère de fin de chaîne
-//     }
-//     else
-//         strs[1] = NULL;
-//     return (strs);
-// }
