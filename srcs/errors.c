@@ -6,13 +6,13 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:09:24 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:31:31 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:55:33 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	ft_exit(char *msg, t_map **matrix, int height)
+void	ft_exit(char *msg, t_matrix **matrix, int height)
 {
 	if (matrix)
 		free_matrix(matrix, height);
@@ -36,7 +36,7 @@ void	free_2d(char **str, int len)
 	}
 }
 
-void	free_matrix(t_map **matrix, int height)
+void	free_matrix(t_matrix **matrix, int height)
 {
 	int	y;
 
@@ -79,7 +79,7 @@ void	height_width(char *file)
 	close(fd);
 }
 
-void	is_error(int ac, char *file)
+void	check_args(int ac, char *file)
 {
 	int	fd;
 

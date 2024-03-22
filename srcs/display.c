@@ -6,31 +6,38 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:00:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 10:28:33 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:49:24 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	display_matrix(t_map **matrix, int height, int width)
+void	display_matrix(t_matrix **matrix)
 {
 	int	y;
 	int	x;
 
 	y = 0;
 	x = 0;
-	while (y < height)
+	while (y < DATA.height)
 	{
 		x = 0;
-		while (x < width)
+		while (x < DATA.width)
 		{
 			ft_printf("matrix[%d][%d].y = %d\n", y, x, matrix[y][x].y);
 			ft_printf("matrix[%d][%d].x = %d\n", y, x, matrix[y][x].x);
 			ft_printf("matrix[%d][%d].z = %d\n", y, x, matrix[y][x].z);
 			ft_printf("matrix[%d][%d].color = %d\n", y, x, matrix[y][x].color);
+			ft_printf("matrix[%d][%d].is_valid = %d\n", y, x, matrix[y][x].is_valid);
 			x++;
 		}
 		ft_printf("\n");
+		// ft_printf("matrix[%d][%d].y = %d\n", y, x, matrix[y][x].y);
+		// ft_printf("matrix[%d][%d].x = %d\n", y, x, matrix[y][x].x);
+		// ft_printf("matrix[%d][%d].z = %d\n", y, x, matrix[y][x].z);
+		// ft_printf("matrix[%d][%d].color = %d\n", y, x, matrix[y][x].color);
+		// ft_printf("matrix[%d][%d].is_valid = %d\n", y, x, matrix[y][x].is_valid);
+		// ft_printf("\n");
 		y++;
 	}
 }
