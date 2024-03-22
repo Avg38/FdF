@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/22 15:16:22 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:52:03 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,39 @@ typedef struct s_matrix
 	t_img	*img;
 }	t_matrix;
 
-char	**ft_split_color(char *s);
-void	display_tab2d(char **s, int height);
-void	free_2d(char **str, int len);
-void	free_matrix(t_matrix **matrix, int height);
-void	display_matrix(t_matrix **matrix);
-void	get_height(char *av, int *height);
-void	get_width(char *line, int *width);
-char	**line_parser(char *line);
-void	fill_data(char **line, t_matrix **matrix, int y);
-void	set_size_matrix(char *file,  int *height, int *width);
+enum
+{
+	UP = 65362,
+	DOWN = 65364,
+	LEFT = 65361,
+	RIGHT = 65363,
+	SPACE = 32,
+	MINUS = 65453,
+	PLUS = 65451,
+	STAR = 65450,
+	DIV = 65455,
+	ESC = 65307,
+	UP_Z = 65365,
+	DOWN_Z = 65366,
+	SIX = 65432
+};
+
+char		**ft_split_color(char *s);
+void		display_tab2d(char **s, int height);
+void		free_2d(char **str, int len);
+void		free_matrix(t_matrix **matrix, int height);
+void		display_matrix(t_matrix **matrix);
+void		get_height(char *av, int *height);
+void		get_width(char *line, int *width);
+char		**line_parser(char *line);
+void		fill_zero(t_matrix *matrix, int width);
+void		fill_matrix(char *file, t_matrix **matrix);
+void		fill_data(char **line, t_matrix **matrix, int y);
+void		size_matrix(char *file, int *height, int *width);
 t_matrix	**alloc_matrix(int height, int width);
-t_matrix	*ft_calloc_fdf(t_matrix *matrix, int width);
-void	ft_exit(char *msg, t_matrix **matrix, int height);
+void		ft_exit(char *msg, t_matrix **matrix, int height);
 // void	height_width(char *file);
-void	set_DATA(t_matrix **matrix, int height, int width);
-void	check_args(int ac, char *file);
+void		set_DATA(t_matrix **matrix, int height, int width);
+void		check_args(int ac, char *file);
 
 #endif

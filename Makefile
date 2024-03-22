@@ -5,8 +5,10 @@ NAME	=	fdf
 SRCS	=	srcs/main.c\
 			srcs/errors.c\
 			srcs/display.c\
-			srcs/map_parser.c\
-			srcs/ft_split_color.c
+			srcs/utils.c\
+			srcs/ft_split_color.c\
+			srcs/alloc_and_fill.c\
+			srcs/size_matrix.c
 
 OBJS	= $(SRCS:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror
