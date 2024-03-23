@@ -8,7 +8,9 @@ SRCS	=	srcs/main.c\
 			srcs/utils.c\
 			srcs/ft_split_color.c\
 			srcs/alloc_and_fill.c\
-			srcs/size_matrix.c
+			srcs/size_matrix.c\
+			srcs/manage_key.c\
+			srcs/bresenham.c
 
 OBJS	= $(SRCS:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror
@@ -19,20 +21,20 @@ all:	force $(NAME)
 		@echo "Makefile compiled."
 
 $(NAME):	$(OBJS) libft/libft.a 
-		gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS) -o $(NAME) $(LDFLAGS)
+		@gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS) -o $(NAME) $(LDFLAGS)
 
 %.o:	%.c include/fdf.h libft/libft.h Makefile libft/libft.a
-	gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 force:
 	@make -C libft/ -s
-	@make -C minilibx-linux/
+	@make -C minilibx-linux/ -s
 
 clean:
-		$(RM) $(OBJS)
+		@$(RM) $(OBJS)
 
 fclean:		clean
-		$(RM) $(NAME)
+		@$(RM) $(NAME)
 
 re:		fclean all
 

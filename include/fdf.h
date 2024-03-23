@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/22 16:52:03 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/23 11:18:19 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,35 @@ enum
 	DOWN_Z = 65366,
 	SIX = 65432
 };
-
+// MAIN
+void		check_args(int ac, char *file);
+void		init_fdf(char *file);
+// FT_SPLIT_COLOR
 char		**ft_split_color(char *s);
+char		**extract_first_part(char *s, int *i);
+// DISPLAY
 void		display_tab2d(char **s, int height);
+void		display_matrix(t_matrix **matrix);
+// ERRORS
 void		free_2d(char **str, int len);
 void		free_matrix(t_matrix **matrix, int height);
-void		display_matrix(t_matrix **matrix);
+void		ft_exit(char *msg, t_matrix **matrix, int height);
+void		height_width(char *file);
+// SIZE_MATRIX
+void		size_matrix(char *file, int *height, int *width);
 void		get_height(char *av, int *height);
 void		get_width(char *line, int *width);
-char		**line_parser(char *line);
+// ALLOC_AND_FILL
+t_matrix	**alloc_matrix(int height, int width);
 void		fill_zero(t_matrix *matrix, int width);
+void		set_data(t_matrix **matrix, int height, int width);
 void		fill_matrix(char *file, t_matrix **matrix);
 void		fill_data(char **line, t_matrix **matrix, int y);
-void		size_matrix(char *file, int *height, int *width);
-t_matrix	**alloc_matrix(int height, int width);
-void		ft_exit(char *msg, t_matrix **matrix, int height);
-// void	height_width(char *file);
-void		set_DATA(t_matrix **matrix, int height, int width);
-void		check_args(int ac, char *file);
-
+// MANAGE_KEY
+int			close_win(t_matrix **matrix);
+int			is_key(int key);
+void		do_key(int key, t_matrix **matrix);
+int			key_handler(int key, t_matrix **matrix);
+// UTILS
+char		**line_parser(char *line);
 #endif

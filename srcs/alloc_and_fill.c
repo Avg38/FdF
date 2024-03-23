@@ -6,21 +6,20 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/22 16:08:10 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:54:23 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	set_DATA(t_matrix **matrix, int height, int width)
+void	set_data(t_matrix **matrix, int height, int width)
 {
 	DATA.height = height;
 	DATA.width = width;
 	DATA.mlx = mlx_init();
-	DATA.win = mlx_new_window(DATA.mlx, 800, 600, "Example");
+	DATA.win = mlx_new_window(DATA.mlx, 800, 600, "FDF");
 	DATA.img = mlx_new_image(DATA.mlx, DATA.width, DATA.height);
 }
-
 
 void	fill_data(char **line, t_matrix **matrix, int y)
 {
@@ -53,7 +52,6 @@ void	fill_matrix(char *file, t_matrix **matrix)
 	if (fd < 1)
 		ft_exit("Error! Bad fd or file empty", matrix, DATA.height);
 	y = -1;
-	ft_printf("DATA.height = %d\n", DATA.height);
 	while (++y < DATA.height)
 		fill_data(line_parser(get_next_line(fd)), matrix, y);
 	close(fd);

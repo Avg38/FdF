@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:52:59 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:21:24 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:38:56 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ char	*run_read(int fd, char *line, char *buffer)
 		if (!line)
 			return (NULL);
 		if ((check_newline(line) > 0 || bytes == 0) && line[0] != 0)
-		{
-			// ft_printf("%s", line);
 			return (line);
-		}
 	}
 	buffer[0] = 0;
 	free(line);

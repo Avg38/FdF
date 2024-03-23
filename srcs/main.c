@@ -6,52 +6,60 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/22 16:47:41 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:28:03 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	on_destroy(t_matrix **matrix)
+void	define_scale(t_matrix **matrix)
 {
-	mlx_destroy_window(DATA.mlx, DATA.win);
-	mlx_destroy_display(DATA.mlx);
-	free(DATA.mlx);
-	free_matrix(matrix, DATA.height);
-	exit (EXIT_SUCCESS);
-	return (0);
+	double	scale_x;
+	double	scale_y;
+
+	scale_x = 0.85 * 1200 / (DATA.width);
+	scale_y = 0.85 * 1000 / (DATA.height);
+	if (scale_x < scale_y)
+		DATA.scale = scale_x;
+	else
+		DATA.scale = scale_y;
 }
 
-int	is_key(int key)
+void	define_offsets(t_matrix **matrix *p_proj, double scale)
 {
-	return (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == SPACE
-		|| key == MINUS || key == PLUS || key == STAR || key == DIV
-		|| key == UP_Z || key == DOWN_Z);
+	DATA.offset_x = md.center_x * DATA.scale
+		+ round((DATA.width - (DATA.scale * md.width)) / 2);
+	DATA.offset_y = md.center_y * DATA.scale
+		+ round((DATA.height - (DATA.scale * md.height)) / 2);
 }
 
-void	do_key(int key, t_matrix **matrix)
+
+void	init_s_projections(t_matrix **matrix)
 {
-	if (key == PLUS)
-		DATA.scale += 3;
-	if (key == MINUS)
-		DATA.scale -= 3;
-	if (key == STAR)
-		DATA.angle += 0.05;
-	if (key == DIV)
-		DATA.angle -= 0.05;
+	define_scale(&(projs->current), p_fdf->map_data);
+	define_offsets(&(projs->current), p_fdf->map_data, projs->current.scale);
+	projs->current.rot_x = -0.52;
+	projs->current.rot_y = 0.52;
+	projs->current.rot_z = 0;
+	projs->current.depthfactor = 1;
 }
 
-int	key_handler(int key, t_matrix **matrix)
+void	check_args(int ac, char *file)
 {
-	printf("key = %d\n", key);
-	if (is_key(key))
+	int	fd;
+
+	if (ac == 2)
 	{
-		mlx_clear_window(DATA.mlx, DATA.win);
-		do_key(key, matrix);
+		if (!ft_strnstr(file, ".fdf", 4))
+			ft_exit("Error! \".fdf\" is needed", NULL, 0);
+		fd = open(file, O_RDONLY);
+		if (fd < 1)
+			ft_exit("Error! Bad fd or file empty", NULL, 0);
+		close(fd);
+		height_width(file);
 	}
-	if (key == ESC)
-		on_destroy(matrix);
-	return (0);
+	else
+		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);
 }
 
 void	init_fdf(char *file)
@@ -64,11 +72,12 @@ void	init_fdf(char *file)
 	width = 0;
 	size_matrix(file, &height, &width);
 	matrix = alloc_matrix(height, width);
-	set_DATA(matrix, height, width);
+	set_data(matrix, height, width);
 	fill_matrix(file, matrix);
 	display_matrix(matrix);
+	init_projections(matrix);
 	mlx_key_hook(DATA.win, &key_handler, matrix);
-	mlx_hook(DATA.win, DestroyNotify, StructureNotifyMask, &on_destroy, matrix);
+	mlx_hook(DATA.win, DestroyNotify, StructureNotifyMask, &close_win, matrix);
 	mlx_loop(DATA.mlx);
 	free_matrix(matrix, DATA.height);
 }
