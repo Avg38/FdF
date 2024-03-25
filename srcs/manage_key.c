@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 10:35:35 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/25 16:41:37 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:56:11 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,22 @@ void	do_key(int key, t_matrix **matrix)
 		DATA.offset_y += 3;
 }
 
-void	clean_close_img(t_matrix **matrix, t_imgs *img_to_destroy)
+void	draw_black(t_matrix **matrix)
 {
-	if (img_to_destroy->img)
-		mlx_destroy_image(DATA.mlx, img_to_destroy->img);
-	img_to_destroy->img = NULL;
-	ft_printf("2");
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_pixel(DATA.imgs, x, y, 0);
+			x++;
+		}
+		y++;
+	}
 }
 
 int	key_handler(int key, t_matrix **matrix)
@@ -63,10 +73,7 @@ int	key_handler(int key, t_matrix **matrix)
 	printf("key = %d\n", key);
 	if (is_key(key))
 	{
-		mlx_clear_window(DATA.mlx, DATA.win);
-		clean_close_img(matrix, &DATA.imgs);
-		DATA.mlx = mlx_init();
-		DATA.imgs = init_new_image(matrix);
+		draw_black(matrix);
 		do_key(key, matrix);
 	}
 	if (key == ESC)
