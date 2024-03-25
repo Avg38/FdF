@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/23 11:18:19 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:31:18 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,29 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
 # define DATA matrix[0][0]
+# define HEIGHT 1080
+# define WIDTH 1920
+# define SCALE_FACTOR 0.75
+
+typedef struct s_imgs
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+	int		x_diff;
+	int		y_diff;
+	int		x_step;
+	int		y_step;
+	int		decision;
+}	t_imgs;
 
 typedef struct s_matrix
 {
@@ -42,7 +60,7 @@ typedef struct s_matrix
 	int		offset_y;
 	void	*mlx;
 	void	*win;
-	t_img	*img;
+	t_imgs	imgs;
 }	t_matrix;
 
 enum
@@ -63,7 +81,7 @@ enum
 };
 // MAIN
 void		check_args(int ac, char *file);
-void		init_fdf(char *file);
+t_matrix	**init_fdf(char *file, t_matrix **matrix);
 // FT_SPLIT_COLOR
 char		**ft_split_color(char *s);
 char		**extract_first_part(char *s, int *i);
@@ -85,6 +103,19 @@ void		fill_zero(t_matrix *matrix, int width);
 void		set_data(t_matrix **matrix, int height, int width);
 void		fill_matrix(char *file, t_matrix **matrix);
 void		fill_data(char **line, t_matrix **matrix, int y);
+// CREATE_FRAME
+void		apply_scaling(t_matrix *point, t_matrix **matrix);
+void		apply_offset(t_matrix *point, t_matrix **matrix);
+void		init_proj_map(t_matrix **matrix);
+void		transform_img(t_matrix **matrix);
+int			frame(t_matrix **matrix);
+t_imgs		init_new_image(t_matrix	**matrix);
+void		clean_close_img(t_matrix **matrix, t_imgs *img_to_destroy);
+// DRAW_LINE
+void		put_pixel(t_imgs imgs, int x, int y, int color);
+void		draw_obtus_slope(t_imgs imgs, t_matrix m0, t_matrix m1);
+// void		init_step(t_imgs *imgs, t_matrix m0, t_matrix m1);
+void		draw_line(t_imgs imgs, t_matrix m0, t_matrix m1);
 // MANAGE_KEY
 int			close_win(t_matrix **matrix);
 int			is_key(int key);

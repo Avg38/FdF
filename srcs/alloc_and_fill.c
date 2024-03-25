@@ -6,19 +6,40 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/23 13:54:23 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:34:33 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+t_imgs	init_new_image(t_matrix	**matrix)
+{
+	t_imgs	img;
+
+	ft_bzero(&img, sizeof(t_imgs));
+	img.img = mlx_new_image(DATA.mlx, WIDTH, HEIGHT);
+	if (!img.img)
+		ft_exit("Error, init_new_image", matrix, DATA.height);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+			&img.line_len, &img.endian);
+	if (!img.addr)
+		ft_exit("Error, init_new_image", matrix, DATA.height);
+	return (img);
+}
 
 void	set_data(t_matrix **matrix, int height, int width)
 {
 	DATA.height = height;
 	DATA.width = width;
 	DATA.mlx = mlx_init();
-	DATA.win = mlx_new_window(DATA.mlx, 800, 600, "FDF");
-	DATA.img = mlx_new_image(DATA.mlx, DATA.width, DATA.height);
+	if (!DATA.mlx)
+		ft_exit("Error DATA.mlx\n", matrix, DATA.height);
+	DATA.win = mlx_new_window(DATA.mlx, WIDTH, HEIGHT, "FDF");
+	if (!DATA.win)
+		ft_exit("Error DATA.win\n", matrix, DATA.height);
+	DATA.imgs = init_new_image(matrix);
+	if (mlx_put_image_to_window(DATA.mlx, DATA.win, DATA.imgs.img, 0, 0) < 0)
+		ft_exit("Error mlx_put_img_to_win\n", matrix, DATA.height);
 }
 
 void	fill_data(char **line, t_matrix **matrix, int y)
@@ -82,7 +103,6 @@ void	fill_zero(t_matrix *matrix, int width)
 		matrix[i].offset_y = 0;
 		matrix[i].mlx = NULL;
 		matrix[i].win = NULL;
-		matrix[i].img = NULL;
 	}
 }
 
