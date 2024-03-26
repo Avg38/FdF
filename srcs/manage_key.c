@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 10:35:35 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/25 16:56:11 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:12:43 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,48 +33,36 @@ int	is_key(int key)
 void	do_key(int key, t_matrix **matrix)
 {
 	if (key == PLUS)
-		DATA.scale += 3;
+		DATA.scale += 1;
 	if (key == MINUS)
-		DATA.scale -= 3;
+		DATA.scale -= 1;
 	if (key == STAR)
 		DATA.angle += 0.05;
 	if (key == DIV)
 		DATA.angle -= 0.05;
 	if (key == LEFT)
-		DATA.offset_x -= 3;
+		DATA.offset_x -= 5;
 	if (key == RIGHT)
-		DATA.offset_x += 3;
+		DATA.offset_x += 5;
 	if (key == UP)
-		DATA.offset_y -= 3;
+		DATA.offset_y -= 5;
 	if (key == DOWN)
-		DATA.offset_y += 3;
+		DATA.offset_y += 5;
 }
 
-void	draw_black(t_matrix **matrix)
+void	new_image(t_matrix **matrix)
 {
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			put_pixel(DATA.imgs, x, y, 0);
-			x++;
-		}
-		y++;
-	}
+	DATA.imgs.img = mlx_new_image(DATA.mlx, WIDTH, HEIGHT);
+	DATA.imgs.addr = mlx_get_data_addr(DATA.imgs.img, &DATA.imgs.bits_per_pixel, &DATA.imgs.line_len, &DATA.imgs.endian);
 }
-
 int	key_handler(int key, t_matrix **matrix)
 {
 	printf("key = %d\n", key);
 	if (is_key(key))
 	{
-		draw_black(matrix);
 		do_key(key, matrix);
+		mlx_destroy_image(DATA.mlx, DATA.imgs.img);
+		new_image(matrix);
 	}
 	if (key == ESC)
 		close_win(matrix);

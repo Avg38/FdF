@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/25 16:31:18 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:03:48 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void		apply_offset(t_matrix *point, t_matrix **matrix);
 void		init_proj_map(t_matrix **matrix);
 void		transform_img(t_matrix **matrix);
 int			frame(t_matrix **matrix);
-t_imgs		init_new_image(t_matrix	**matrix);
-void		clean_close_img(t_matrix **matrix, t_imgs *img_to_destroy);
+t_imgs		init_new_img(t_matrix	**matrix);
+void		destroy_img(t_matrix **matrix);
 // DRAW_LINE
 void		put_pixel(t_imgs imgs, int x, int y, int color);
 void		draw_obtus_slope(t_imgs imgs, t_matrix m0, t_matrix m1);

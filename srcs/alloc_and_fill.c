@@ -6,13 +6,13 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/25 14:34:33 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:04:21 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-t_imgs	init_new_image(t_matrix	**matrix)
+t_imgs	init_new_img(t_matrix	**matrix)
 {
 	t_imgs	img;
 
@@ -37,7 +37,7 @@ void	set_data(t_matrix **matrix, int height, int width)
 	DATA.win = mlx_new_window(DATA.mlx, WIDTH, HEIGHT, "FDF");
 	if (!DATA.win)
 		ft_exit("Error DATA.win\n", matrix, DATA.height);
-	DATA.imgs = init_new_image(matrix);
+	DATA.imgs = init_new_img(matrix);
 	if (mlx_put_image_to_window(DATA.mlx, DATA.win, DATA.imgs.img, 0, 0) < 0)
 		ft_exit("Error mlx_put_img_to_win\n", matrix, DATA.height);
 }
