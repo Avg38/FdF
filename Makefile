@@ -11,7 +11,8 @@ SRCS	=	srcs/main.c\
 			srcs/size_matrix.c\
 			srcs/manage_key.c\
 			srcs/draw_line.c\
-			srcs/create_frame.c
+			srcs/create_frame.c\
+			srcs/color.c
 
 OBJS	= $(SRCS:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror

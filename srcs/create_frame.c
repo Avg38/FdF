@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:55:39 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 11:32:50 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:00:22 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,53 @@ void	apply_isometric(t_matrix *point, double angle)
 	point->y_proj = (point->x_proj + point->y_proj) * sin(angle) - point->z_proj;
 }
 
+void	apply_rot_x(t_matrix *point, double cos_a, double sin_a)
+{
+	int	old_y;
+	int	old_z;
+
+	old_y = point->y_proj;
+	old_z = point->z_proj;
+	point->y_proj = old_y * cos_a + old_z * sin_a;
+	point->z_proj = old_y * (-sin_a) + old_z * cos_a;
+}
+
+void	apply_rot_y(t_matrix *point, double cos_a, double sin_a)
+{
+	int	old_x;
+	int	old_z;
+
+	old_x = point->x_proj;
+	old_z = point->z_proj;
+	point->x_proj = old_x * cos_a + old_z * (-sin_a);
+	point->z_proj = old_x * sin_a + old_z * cos_a;
+}
+
+void	apply_rot_z(t_matrix *point, double cos_a, double sin_a)
+{
+	int	old_x;
+	int	old_y;
+
+	old_x = point->x_proj;
+	old_y = point->y_proj;
+	point->x_proj = old_x * cos_a + old_y * sin_a;
+	point->y_proj = old_x * (-sin_a) + old_y * cos_a;
+}
+
+void	apply_rotation(t_matrix *point, t_matrix **matrix)
+{
+	apply_rot_x(point, (double)cos(DATA.rot_x), (double)sin(DATA.rot_x));
+	apply_rot_y(point, (double)cos(DATA.rot_y), (double)sin(DATA.rot_y));
+	apply_rot_z(point, (double)cos(DATA.rot_z), (double)sin(DATA.rot_z));
+}
+
+void	mod_2d(t_matrix **matrix)
+{
+	DATA.rot_x = 0;
+	DATA.rot_y = 0;
+	DATA.rot_z = 0;
+}
+
 void	init_proj_map(t_matrix **matrix)
 {
 	int	x;
@@ -45,7 +92,13 @@ void	init_proj_map(t_matrix **matrix)
 		while (x < DATA.width && matrix[y][x].is_valid > 0)
 		{
 			apply_scaling(&matrix[y][x], matrix);
-			apply_isometric(&matrix[y][x], DATA.angle);
+			if (DATA.is_isometric == 0)
+				mod_2d(matrix);
+			else
+			{
+				apply_isometric(&matrix[y][x], DATA.angle);
+				apply_rotation(&matrix[y][x], matrix);
+			}
 			apply_offset(&matrix[y][x], matrix);
 			x++;
 		}
@@ -70,7 +123,6 @@ void	transform_img(t_matrix **matrix)
 					draw_line(DATA.imgs, matrix[y][x], matrix[y + 1][x]);
 			x++;
 		}
-		ft_printf("blabla\n");
 		y++;
 	}
 }
@@ -81,7 +133,6 @@ int	frame(t_matrix **matrix)
 {
 	init_proj_map(matrix);
 	transform_img(matrix);
-	ft_printf("1\n");
 	mlx_put_image_to_window(DATA.mlx, DATA.win, DATA.imgs.img, 0, 0);
 	return (1);
 }

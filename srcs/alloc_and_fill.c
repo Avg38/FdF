@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 11:04:21 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:41:33 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,38 +78,36 @@ void	fill_matrix(char *file, t_matrix **matrix)
 	close(fd);
 }
 
-void	fill_zero(t_matrix *matrix, int width)
+void	fill_zero(t_matrix *matrix)
 {
-	int	i;
-
-	i = -1;
-	while (++i <= width)
-	{
-		matrix[i].x = 0;
-		matrix[i].y = 0;
-		matrix[i].z = 0;
-		matrix[i].color = 0;
-		matrix[i].x_proj = 0;
-		matrix[i].y_proj = 0;
-		matrix[i].z_proj = 0;
-		matrix[i].is_valid = 0;
-		matrix[i].is_isometric = 0;
-		matrix[i].height = 0;
-		matrix[i].width = 0;
-		matrix[i].scale = 0;
-		matrix[i].angle = 0;
-		matrix[i].depth = 0;
-		matrix[i].offset_x = 0;
-		matrix[i].offset_y = 0;
-		matrix[i].mlx = NULL;
-		matrix[i].win = NULL;
-	}
+	matrix->x = 0;
+	matrix->y = 0;
+	matrix->z = 0;
+	matrix->color = 0;
+	matrix->x_proj = 0;
+	matrix->y_proj = 0;
+	matrix->z_proj = 0;
+	matrix->is_valid = 0;
+	matrix->is_isometric = 0;
+	matrix->height = 0;
+	matrix->width = 0;
+	matrix->scale = 0;
+	matrix->angle = 0;
+	matrix->depth = 0;
+	matrix->offset_x = 0;
+	matrix->offset_y = 0;
+	matrix->rot_x = 0;
+	matrix->rot_y = 0;
+	matrix->rot_z = 0;
+	matrix->mlx = NULL;
+	matrix->win = NULL;
 }
 
 t_matrix	**alloc_matrix(int height, int width)
 {
 	t_matrix	**matrix;
 	int			y;
+	int			x;
 
 	matrix = (t_matrix **)malloc(height * sizeof(t_matrix *));
 	if (!matrix)
@@ -118,12 +116,15 @@ t_matrix	**alloc_matrix(int height, int width)
 	while (++y < height)
 	{
 		matrix[y] = (t_matrix *)malloc((width + 1) * sizeof(t_matrix));
-		if (!matrix)
-			return (ft_exit("malloc matrix element failed", matrix, y), NULL);
-		fill_zero(matrix[y], width);
 		if (!matrix[y])
-			return (free_matrix(matrix, y),
-				ft_exit("get_width or get_height doesn't work", NULL, 0), NULL);
+			return (ft_exit("malloc matrix element failed", matrix, y), NULL);
+	}
+	y = -1;
+	while (++y < height)
+	{
+		x = -1;
+		while (++x <= width)
+			fill_zero(&matrix[y][x]);
 	}
 	return (matrix);
 }

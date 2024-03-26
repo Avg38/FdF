@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 10:59:04 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:24:13 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,23 @@ void	init_proj(t_matrix **matrix)
 
 	scale_x = (SCALE_FACTOR * WIDTH) / (DATA.width);
 	scale_y = (SCALE_FACTOR * HEIGHT) / (DATA.height);
-	if (scale_x < scale_y)
+	if (scale_x > scale_y)
 		DATA.scale = scale_x;
 	else
 		DATA.scale = scale_y;
-	DATA.angle = 0.80;
+	DATA.angle = 0.50;
 	DATA.is_isometric = 1;
-	DATA.offset_x = (DATA.width / 2) * DATA.scale
-		+ round((WIDTH - (DATA.scale * DATA.width)) / 2);
-	DATA.offset_y = (DATA.height / 2) * DATA.scale
-		+ round((HEIGHT - (DATA.scale * DATA.height)) / 2);
+	// DATA.offset_x = (DATA.width / 2) * DATA.scale
+	// 	+ round((WIDTH - (DATA.scale * DATA.width)) / 2);
+	// DATA.offset_y = (DATA.height / 2) * DATA.scale
+	// 	+ round((HEIGHT - (DATA.scale * DATA.height)) / 2);
+	DATA.offset_x = (WIDTH - DATA.width * DATA.scale * DATA.angle * 0.5) / 2;
+	DATA.offset_y = (HEIGHT - DATA.height * DATA.scale * DATA.angle) / 2;
 	DATA.imgs.x_step = 1;
 	DATA.imgs.y_step = 1;
+	DATA.rot_x = -0.25;
+	DATA.rot_y = -0.25;
+	DATA.rot_z = -0;
 	DATA.depth = 0.25;
 }
 
