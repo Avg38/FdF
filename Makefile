@@ -12,7 +12,9 @@ SRCS	=	srcs/main.c\
 			srcs/manage_key.c\
 			srcs/draw_line.c\
 			srcs/create_frame.c\
-			srcs/color.c
+			srcs/color.c\
+			srcs/do_key.c\
+			srcs/do_key2.c
 
 OBJS	= $(SRCS:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror

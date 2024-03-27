@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 11:15:06 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:42:10 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,15 @@ int			close_win(t_matrix **matrix);
 int			is_key(int key);
 void		do_key(int key, t_matrix **matrix);
 int			key_handler(int key, t_matrix **matrix);
+// DO_KEY
+void	do_key(int key, t_matrix **matrix);
+void	rot_key(int key, t_matrix **matrix);
+void	offset_key(int key, t_matrix **matrix);
+void	scale_key(int key, t_matrix **matrix);
+void	depth_key(int key, t_matrix **matrix);
+void	center_key(t_matrix **matrix);
+void	gradient_key(int key, t_matrix **matrix);
+void	isometric_key(t_matrix **matrix);
 // COLOR
 int			strhexa_to_colorint(char *strhexa);
 t_argb		create_argb(int color);
