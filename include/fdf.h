@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 15:46:23 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:15:06 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define DATA matrix[0][0]
 # define HEIGHT 1080
 # define WIDTH 1920
-# define SCALE_FACTOR 0.75
+# define SCALE_FACTOR 0.5
 
 typedef struct s_imgs
 {
@@ -38,6 +38,7 @@ typedef struct s_imgs
 	int		x_step;
 	int		y_step;
 	int		decision;
+	int		is_gradient;
 }	t_imgs;
 
 typedef struct s_argb
@@ -62,7 +63,7 @@ typedef struct s_matrix
 	int		height;
 	int		width;
 	double	scale;
-	double	angle;
+	// double	angle;
 	double	depth;
 	int		offset_x;
 	int		offset_y;
@@ -91,7 +92,9 @@ enum
 	ESC = 65307,
 	SPACE = 32,
 	UP_Z = 65365,
-	DOWN_Z = 65366
+	DOWN_Z = 65366,
+	G = 103,
+	C = 99
 };
 // MAIN
 void		check_args(int ac, char *file);
@@ -119,7 +122,7 @@ void		fill_matrix(char *file, t_matrix **matrix);
 void		fill_data(char **line, t_matrix **matrix, int y);
 // CREATE_FRAME
 void		apply_scaling(t_matrix *point, t_matrix **matrix);
-void		apply_isometric(t_matrix *point, double angle);
+void		apply_isometric(t_matrix *point);
 void		apply_offset(t_matrix *point, t_matrix **matrix);
 void		init_proj_map(t_matrix **matrix);
 void		transform_img(t_matrix **matrix);

@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:55:39 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 16:00:22 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:51:41 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	apply_offset(t_matrix *point, t_matrix **matrix)
 }
 
 
-void	apply_isometric(t_matrix *point, double angle)
+void	apply_isometric(t_matrix *point)
 {
-	point->x_proj = (point->x_proj - point->y_proj) * cos(angle);
-	point->y_proj = (point->x_proj + point->y_proj) * sin(angle) - point->z_proj;
+	point->x_proj = (point->x_proj - point->y_proj);
+	point->y_proj = (point->x_proj + point->y_proj) - point->z_proj;
 }
 
 void	apply_rot_x(t_matrix *point, double cos_a, double sin_a)
@@ -95,10 +95,7 @@ void	init_proj_map(t_matrix **matrix)
 			if (DATA.is_isometric == 0)
 				mod_2d(matrix);
 			else
-			{
-				apply_isometric(&matrix[y][x], DATA.angle);
 				apply_rotation(&matrix[y][x], matrix);
-			}
 			apply_offset(&matrix[y][x], matrix);
 			x++;
 		}
