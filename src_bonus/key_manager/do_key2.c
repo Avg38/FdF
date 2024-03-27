@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_key.c                                           :+:      :+:    :+:   */
+/*   do_key2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:37:52 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 11:41:57 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:49:17 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf_bonus.h"
 
 void	rot_key(int key, t_matrix **matrix)
 {
@@ -39,9 +39,9 @@ void	offset_key(int key, t_matrix **matrix)
 void	scale_key(int key, t_matrix **matrix)
 {
 	if (key == PLUS && DATA.scale < SCALE_FACTOR * 1000)
-		DATA.scale += 0.5 * DATA.scale;
+		DATA.scale += 0.2 * DATA.scale;
 	if (key == MINUS && DATA.scale >= SCALE_FACTOR)
-		DATA.scale -= 0.5 * abs((int)DATA.scale) / 2;
+		DATA.scale -= 0.2 * abs((int)DATA.scale) / 2;
 }
 
 void	depth_key(int key, t_matrix **matrix)
@@ -52,20 +52,7 @@ void	depth_key(int key, t_matrix **matrix)
 		DATA.depth -= 0.1;
 }
 
-void	do_key(int key, t_matrix **matrix)
+void	gradient_key(t_matrix **matrix)
 {
-	if (key == W || key == S || key == A || key == D)
-		rot_key(key, matrix);
-	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
-		offset_key(key, matrix);
-	if (key == PLUS || key == MINUS)
-		scale_key(key, matrix);
-	if (key == UP || key == DOWN)
-		depth_key(key, matrix);
-	if (key == C)
-		center_key(matrix);
-	if (key == G)
-		gradient_key(key, matrix);
-	if (key == SPACE)
-		isometric_key(matrix);
+	DATA.imgs.gradient *= -1;
 }

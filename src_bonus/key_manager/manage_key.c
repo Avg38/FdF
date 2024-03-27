@@ -6,11 +6,11 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 10:35:35 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 11:39:03 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:22:57 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf_bonus.h"
 
 int	close_win(t_matrix **matrix)
 {
@@ -29,7 +29,8 @@ int	is_key(int key)
 		|| key == D || key == UP || key == DOWN || key == LEFT
 		|| key == RIGHT || key == PLUS || key == MINUS
 		|| key == STAR || key == DIV || key == SPACE
-		|| key == UP_Z || key == DOWN_Z || key == G || key == C);
+		|| key == UP_Z || key == DOWN_Z || key == G || key == C
+		|| key == V);
 }
 
 void	new_image(t_matrix **matrix)

@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 17:00:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/23 11:04:18 by avialle-         ###   ########.fr       */
+/*   Created: 2024/02/23 18:31:00 by avialle-          #+#    #+#             */
+/*   Updated: 2024/03/27 16:25:13 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf.h"
+
+char	**line_parser(char *line)
+{
+	char	**split;
+
+	if (!line)
+		return (NULL);
+	split = ft_split(line, ' ');
+	if (!split)
+		return (NULL);
+	free(line);
+	return (split);
+}
 
 void	display_matrix(t_matrix **matrix)
 {
@@ -40,30 +53,6 @@ void	display_matrix(t_matrix **matrix)
 	ft_printf("\n--\n");
 }
 
-// void	display_matrix(t_matrix **matrix)
-// {
-// 	int	y;
-// 	int	x;
-
-// 	y = 0;
-// 	x = 0;
-// 	while (y < DATA.height)
-// 	{
-// 		x = 0;
-// 		while (x <= DATA.width)
-// 		{
-// 			ft_printf("matrix[%d][%d].y = %d\n", y, x, matrix[y][x].y);
-// 			ft_printf("matrix[%d][%d].x = %d\n", y, x, matrix[y][x].x);
-// 			ft_printf("matrix[%d][%d].z = %d\n", y, x, matrix[y][x].z);
-// 			ft_printf("matrix[%d][%d].color = %d\n", y, x, matrix[y][x].color);
-//			ft_printf("matrix[%d][%d].is_valid = %d\n", y, x, matrix[y][x].is_valid);
-// 			x++;
-// 		}
-// 		ft_printf("\n");
-// 		y++;
-// 	}
-// }
-
 void	display_tab2d(char **s, int height)
 {
 	int	i;
@@ -73,3 +62,5 @@ void	display_tab2d(char **s, int height)
 		while (++i < height)
 			ft_printf("%s", s[i]);
 }
+
+

@@ -6,29 +6,33 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:54:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/22 16:01:54 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:28:12 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf_bonus.h"
 
 void	get_height(char *file, int *height)
 {
 	int		fd;
 	char	*line;
+	// int		i;
 
+	// i = 1;
 	*height = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
 		ft_exit("Error! Bad fd or empty file", NULL, 0);
-	line = get_next_line(fd);
-	while (line)
+	while (1)
 	{
-		(*height)++;
-		free(line);
 		line = get_next_line(fd);
+		if (!line)
+			break ;
+		(*height)++;
+		// ft_printf("%d: line = %s- donc height = %d\n", i++, line, *height);
+		free(line);
 	}
-	free(line);
+	// free(line);
 	close(fd);
 }
 

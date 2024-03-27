@@ -6,11 +6,11 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:47:03 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/26 13:57:25 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:14:06 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf_bonus.h"
 
 int	strhexa_to_colorint(char *strhexa)
 {

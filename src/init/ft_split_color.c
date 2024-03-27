@@ -6,11 +6,11 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:15:17 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 10:27:28 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:30:01 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf.h"
 
 char	**extract_first_part(char *s, int *i)
 {

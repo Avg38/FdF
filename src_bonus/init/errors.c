@@ -6,11 +6,11 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:09:24 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/23 11:05:08 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:22:38 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf_bonus.h"
 
 void	ft_exit(char *msg, t_matrix **matrix, int height)
 {
@@ -77,4 +77,22 @@ void	height_width(char *file)
 		i++;
 	}
 	close(fd);
+}
+
+void	check_args(int ac, char *file)
+{
+	int	fd;
+
+	if (ac == 2)
+	{
+		if (!ft_strnstr(file, ".fdf", 4))
+			ft_exit("Error! \".fdf\" is needed", NULL, 0);
+		fd = open(file, O_RDONLY);
+		if (fd < 1)
+			ft_exit("Error! Bad fd or file empty", NULL, 0);
+		close(fd);
+		height_width(file);
+	}
+	else
+		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);
 }

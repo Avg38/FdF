@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 15:53:07 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 16:31:25 by avialle-         ###   ########.fr       */
+/*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
+/*   Updated: 2024/03/27 16:16:48 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -38,7 +38,17 @@ typedef struct s_imgs
 	int		x_step;
 	int		y_step;
 	int		decision;
+	int		gradient;
+	int		diagonal;
 }	t_imgs;
+
+typedef struct s_argb
+{
+	unsigned char	a;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}	t_argb;
 
 typedef struct s_matrix
 {
@@ -64,6 +74,29 @@ typedef struct s_matrix
 	void	*win;
 	t_imgs	imgs;
 }	t_matrix;
+
+enum
+{
+	W = 119,
+	S = 115,
+	A = 97,
+	D = 100,
+	UP = 65362,
+	DOWN = 65364,
+	LEFT = 65361,
+	RIGHT = 65363,
+	MINUS = 65453,
+	PLUS = 65451,
+	STAR = 65450,
+	DIV = 65455,
+	ESC = 65307,
+	SPACE = 32,
+	UP_Z = 65365,
+	DOWN_Z = 65366,
+	G = 103,
+	C = 99,
+	V = 118
+};
 
 // ******************MAIN
 void		check_args(int ac, char *file);
@@ -116,10 +149,33 @@ void		draw_acute_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		draw_obtus_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		init_step(t_imgs *imgs, t_matrix p0, t_matrix p1);
 
+// ******************KEY_MANAGER
+// manage_key.c
+int			close_win(t_matrix **matrix);
+int			is_key(int key);
+void		do_key(int key, t_matrix **matrix);
+int			key_handler(int key, t_matrix **matrix);
+// do_key1.c
+void		do_key(int key, t_matrix **matrix);
+void		center_key(t_matrix **matrix);
+void		isometric_key(t_matrix **matrix);
+void		diagonal_key(t_matrix **matrix);
+// do_key2.c
+void		gradient_key(t_matrix **matrix);
+void		rot_key(int key, t_matrix **matrix);
+void		offset_key(int key, t_matrix **matrix);
+void		scale_key(int key, t_matrix **matrix);
+void		depth_key(int key, t_matrix **matrix);
+// color.c
+int			strhexa_to_colorint(char *strhexa);
+t_argb		create_argb(int color);
+int			create_color_gradient(float delta, t_argb color1, t_argb color2);
+int			process_color(int curr_steps, int tot_steps,
+				int color_ini, int color_end);
+
 // ******************UTILS
 // utils.c
 void		display_tab2d(char **s, int height);
 void		display_matrix(t_matrix **matrix);
 char		**line_parser(char *line);
-int			close_win(int key, t_matrix **matrix);
 #endif
