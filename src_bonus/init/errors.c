@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:09:24 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 15:22:38 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:09:28 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,33 @@ void	free_matrix(t_matrix **matrix, int height)
 	free(matrix);
 }
 
-void	height_width(char *file)
-{
-	int	height;
-	int	width;
-	int	tmp;
-	int	i;
-	int	fd;
+// void	height_width(char *file)
+// {
+// 	int	height;
+// 	int	width;
+// 	int	tmp;
+// 	int	i;
+// 	int	fd;
 
-	fd = open(file, O_RDONLY);
-	if (fd < 1)
-		ft_exit("Error bad fd or empy file", NULL, 0);
-	get_height(file, &height);
-	if (height < 1)
-		return (close(fd), ft_exit("Error colunm size < 1", NULL, 0));
-	get_width(get_next_line(fd), &width);
-	if (width == 0)
-		return (close(fd), ft_exit("Error! Line size < 1", NULL, 0));
-	i = 1;
-	while (i < height)
-	{
-		get_width(get_next_line(fd), &tmp);
-		if (!tmp || tmp != width)
-			return (close(fd), ft_exit("Error! Line size", NULL, 0));
-		i++;
-	}
-	close(fd);
-}
+// 	fd = open(file, O_RDONLY);
+// 	if (fd < 1)
+// 		ft_exit("Error bad fd or empy file", NULL, 0);
+// 	get_height(file, &height);
+// 	if (height < 1)
+// 		return (close(fd), ft_exit("Error colunm size < 1", NULL, 0));
+// 	get_width(get_next_line(fd), &width);
+// 	if (width == 0)
+// 		return (close(fd), ft_exit("Error! Line size < 1", NULL, 0));
+// 	i = 1;
+// 	while (i < height)
+// 	{
+// 		get_width(get_next_line(fd), &tmp);
+// 		if (!tmp || tmp != width)
+// 			return (close(fd), ft_exit("Error! Line size", NULL, 0));
+// 		i++;
+// 	}
+// 	close(fd);
+// }
 
 void	check_args(int ac, char *file)
 {
@@ -91,7 +91,7 @@ void	check_args(int ac, char *file)
 		if (fd < 1)
 			ft_exit("Error! Bad fd or file empty", NULL, 0);
 		close(fd);
-		height_width(file);
+		// height_width(file);
 	}
 	else
 		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);

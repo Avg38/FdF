@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:39:14 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 15:49:08 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:23:59 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	center_key(t_matrix **matrix)
 {
-	if (DATA.isometric == 1)
+	if (matrix[0][0].isometric == 1)
 	{
-		DATA.offset_x = (WIDTH - DATA.width * DATA.scale) / 2;
-		DATA.offset_y = (HEIGHT - DATA.height * DATA.scale) / 2;
+		matrix[0][0].offset_x = (WIDTH - matrix[0][0].width * matrix[0][0].scale) / 2;
+		matrix[0][0].offset_y = (HEIGHT - matrix[0][0].height * matrix[0][0].scale) / 2;
 	}
 	else
 	{
-		DATA.offset_x = (WIDTH - DATA.width * DATA.scale) / 2;
-		DATA.offset_y = (HEIGHT - DATA.height * DATA.scale) / 2;
+		matrix[0][0].offset_x = (WIDTH - matrix[0][0].width * matrix[0][0].scale) / 2;
+		matrix[0][0].offset_y = (HEIGHT - matrix[0][0].height * matrix[0][0].scale) / 2;
 	}
 }
 
 void	isometric_key(t_matrix **matrix)
 {
-	DATA.isometric *= -1;
-	if (DATA.isometric == 1)
+	matrix[0][0].isometric *= -1;
+	if (matrix[0][0].isometric == 1)
 	{
 		center_key(matrix);
-		DATA.rot_x = -0.52;
-		DATA.rot_y = -0.52;
-		DATA.rot_z = -0;
-		DATA.depth = 1;
+		matrix[0][0].rot_x = -0.52;
+		matrix[0][0].rot_y = -0.52;
+		matrix[0][0].rot_z = -0;
+		matrix[0][0].depth = 1;
 	}
 	else
 		center_key(matrix);
@@ -43,7 +43,7 @@ void	isometric_key(t_matrix **matrix)
 
 void	diagonal_key(t_matrix **matrix)
 {
-	DATA.imgs.diagonal *= -1;
+	matrix[0][0].imgs.diagonal *= -1;
 }
 
 void	do_key(int key, t_matrix **matrix)

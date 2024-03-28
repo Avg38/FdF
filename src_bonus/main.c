@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 16:23:17 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:11:36 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_matrix	**init_fdf(char *file, t_matrix **matrix)
 	matrix = alloc_matrix(height, width);
 	init_data(matrix, height, width);
 	fill_matrix(file, matrix);
-	display_matrix(matrix);
+	// display_matrix(matrix);
 	init_proj(matrix);
 	return (matrix);
 }
@@ -35,8 +35,9 @@ int	main(int ac, char **av)
 	matrix = NULL;
 	check_args(ac, av[1]);
 	matrix = init_fdf(av[1], matrix);
-	mlx_hook(DATA.win, 2, 1L << 0, key_handler, matrix);
-	mlx_loop_hook(DATA.mlx, frame, matrix);
-	mlx_loop(DATA.mlx);
+	mlx_hook(matrix[0][0].win, 2, 1L << 0, &key_handler, matrix);
+	mlx_hook(matrix[0][0].win, 17, (1L<<17), &close_win, matrix);
+	mlx_loop_hook(matrix[0][0].mlx, frame, matrix);
+	mlx_loop(matrix[0][0].mlx);
 	return (0);
 }

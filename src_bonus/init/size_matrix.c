@@ -6,64 +6,55 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:54:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 15:28:12 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:11:15 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/fdf_bonus.h"
 
-void	get_height(char *file, int *height)
+int	get_width(char *line)
 {
-	int		fd;
-	char	*line;
-	// int		i;
-
-	// i = 1;
-	*height = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 1)
-		ft_exit("Error! Bad fd or empty file", NULL, 0);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		(*height)++;
-		// ft_printf("%d: line = %s- donc height = %d\n", i++, line, *height);
-		free(line);
-	}
-	// free(line);
-	close(fd);
-}
-
-void	get_width(char *line, int *width)
-{
-	int				i;
+	int	i;
+	int	width;
 
 	if (!line)
-		return ;
+		return (0);
 	i = 0;
-	(*width) = 0;
+	width = 0;
 	while (line[i])
 	{
 		if (line[i] && line[i] != '\n'
 			&& line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
-			(*width)++;
+			width++;
 		i++;
 	}
-	free(line);
+	return (width);
+}
+void	get_size(char *file, int *height, int *width)
+{
+	int		fd;
+	char	*line;
+
+	*height = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 1)
+		ft_exit("Error! Bad fd or empty file", NULL, 0);
+	line = get_next_line(fd);
+	*width = get_width(line);
+	if (!*width)
+		ft_exit("Error! line width", NULL, 0);
+	while (line)
+	{
+		(*height)++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
 
 void	size_matrix(char *file, int *height, int *width)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 1)
-		return (ft_exit("Error bad fd or empty file", NULL, 0));
-	get_width(get_next_line(fd), width);
-	close(fd);
-	get_height(file, height);
+	get_size(file, height, width);
 	if (*width <= 0 || *height <= 0)
 		return (ft_exit("get_width or get_height doesn't work", NULL, 0));
 }

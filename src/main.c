@@ -6,23 +6,27 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 16:32:18 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:33:19 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	close_win(int key, t_matrix **matrix)
+int	close_win(t_matrix **matrix)
 {
-	if (key == 17)
-	{
-		mlx_destroy_image(DATA.mlx, DATA.imgs.img);
-		mlx_destroy_window(DATA.mlx, DATA.win);
-		mlx_destroy_display(DATA.mlx);
-		free(DATA.mlx);
-		free_matrix(matrix, DATA.height);
-		exit (EXIT_SUCCESS);
-	}
+	mlx_destroy_image(matrix[0][0].mlx, matrix[0][0].imgs.img);
+	mlx_destroy_window(matrix[0][0].mlx, matrix[0][0].win);
+	mlx_destroy_display(matrix[0][0].mlx);
+	free(matrix[0][0].mlx);
+	free_matrix(matrix, matrix[0][0].height);
+	exit (EXIT_SUCCESS);
+	return (0);
+}
+
+int	esc_handler(int key, t_matrix **matrix)
+{
+	if (key == 65307)
+		close_win(matrix);
 	return (0);
 }
 
@@ -37,7 +41,6 @@ t_matrix	**init_fdf(char *file, t_matrix **matrix)
 	matrix = alloc_matrix(height, width);
 	init_data(matrix, height, width);
 	fill_matrix(file, matrix);
-	// display_matrix(matrix);
 	init_proj(matrix);
 	return (matrix);
 }
@@ -49,9 +52,9 @@ int	main(int ac, char **av)
 	matrix = NULL;
 	check_args(ac, av[1]);
 	matrix = init_fdf(av[1], matrix);
-	mlx_key_hook(DATA.win, close_win, matrix);
-	mlx_hook(DATA.win, 2, 1L << 0, close_win, matrix);
+	mlx_key_hook(matrix[0][0].win, &esc_handler, matrix);
+	mlx_hook(matrix[0][0].win, 17, 1L << 17, &close_win, matrix);
 	frame(matrix);
-	mlx_loop(DATA.mlx);
+	mlx_loop(matrix[0][0].mlx);
 	return (0);
 }

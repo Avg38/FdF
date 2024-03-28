@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:28:32 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 14:29:49 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:18:45 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	apply_scaling(t_matrix *point, t_matrix **matrix)
 {
-	point->x_proj = point->x * ceil(DATA.scale);
-	point->y_proj = point->y * ceil(DATA.scale);
-	point->z_proj = point->z * 0.15 * DATA.scale * DATA.depth;
+	point->x_proj = point->x * ceil(matrix[0][0].scale);
+	point->y_proj = point->y * ceil(matrix[0][0].scale);
+	point->z_proj = point->z * 0.15 * matrix[0][0].scale * matrix[0][0].depth;
 }
 
 void	apply_offset(t_matrix *point, t_matrix **matrix)
 {
-	point->x_proj = point->x_proj + DATA.offset_x;
-	point->y_proj = point->y_proj + DATA.offset_y;
+	point->x_proj = point->x_proj + matrix[0][0].offset_x;
+	point->y_proj = point->y_proj + matrix[0][0].offset_y;
 }
 
 void	apply_isometric(t_matrix *point)
@@ -33,7 +33,7 @@ void	apply_isometric(t_matrix *point)
 
 void	mod_2d(t_matrix **matrix)
 {
-	DATA.rot_x = 0;
-	DATA.rot_y = 0;
-	DATA.rot_z = 0;
+	matrix[0][0].rot_x = 0;
+	matrix[0][0].rot_y = 0;
+	matrix[0][0].rot_z = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 16:16:48 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:41:14 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
-# define DATA matrix[0][0]
+// # define DATA matrix[0][0]
 # define HEIGHT 1080
 # define WIDTH 1920
 # define SCALE_FACTOR 0.5
@@ -103,9 +103,6 @@ void		check_args(int ac, char *file);
 t_matrix	**init_fdf(char *file, t_matrix **matrix);
 
 // ******************INIT
-// ft_split_color.c
-char		**ft_split_color(char *s);
-char		**extract_first_part(char *s, int *i);
 // errors.c
 void		free_2d(char **str, int len);
 void		free_matrix(t_matrix **matrix, int height);
@@ -113,8 +110,8 @@ void		ft_exit(char *msg, t_matrix **matrix, int height);
 void		height_width(char *file);
 // size_matrix.c
 void		size_matrix(char *file, int *height, int *width);
-void		get_height(char *av, int *height);
-void		get_width(char *line, int *width);
+void		get_size(char *file, int *height, int *width);
+int			get_width(char *line);
 // init_matrix.c
 t_matrix	**alloc_matrix(int height, int width);
 void		fill_zero(t_matrix *matrix);

@@ -11,7 +11,6 @@ SRCS	=	src/main.c\
 			src/init/size_matrix.c\
 			src/init/init_matrix.c\
 			src/init/fill_matrix.c\
-			src/init/ft_split_color.c\
 			src/init/errors.c\
 			src/utils/utils.c
 
@@ -24,7 +23,6 @@ SRCS_BONUS	=	src_bonus/main.c\
 			src_bonus/init/size_matrix.c\
 			src_bonus/init/init_matrix.c\
 			src_bonus/init/fill_matrix.c\
-			src_bonus/init/ft_split_color.c\
 			src_bonus/init/errors.c\
 			src_bonus/key_manager/manage_key.c\
 			src_bonus/key_manager/do_key1.c\
@@ -60,10 +58,10 @@ all:	force $(NAME)
 bonus:	force $(NAME_BONUS)
 		@echo "FdF Bonus compiled."
 
-$(NAME):	$(OBJS) libft/libft.a 
+$(NAME):	$(OBJS) libft/libft.a include/fdf.h
 		@gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS) -o $(NAME) $(LDFLAGS)
 
-$(NAME_BONUS):	$(OBJS_BONUS) libft/libft.a 
+$(NAME_BONUS):	$(OBJS_BONUS) libft/libft.a include/fdf_bonus.h
 		@gcc $(CFLAGS) -Iinclude -Ilibft $(OBJS_BONUS) -o $(NAME_BONUS) $(LDFLAGS)
 
 obj/%.o:	src/%.c include/fdf.h libft/libft.h Makefile libft/libft.a | $(OBJ_DIR)
@@ -85,5 +83,7 @@ fclean:		clean
 		@$(RM) $(NAME_BONUS)
 
 re:		fclean all
+
+reb:		fclean bonus
 
 .PHONY: all clean fclean re force
