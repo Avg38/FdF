@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:53:07 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 14:35:17 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:05:01 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
-// # define DATA matrix[0][0]
 # define WIN_H 1080
 # define WIN_W 1920
 # define SCALE_FACTOR 0.8
@@ -67,19 +66,21 @@ typedef struct s_matrix
 
 // ******************MAIN
 void		check_args(int ac, char *file);
-t_matrix	**init_fdf(char *file, t_matrix **matrix);
 
 // ******************INIT
-// errors.c
+// close.c
 void		free_2d(char **str, int len);
 void		free_matrix(t_matrix **matrix, int height);
 void		ft_exit(char *msg, t_matrix **matrix, int height);
-void		height_width(char *file);
+int			close_win(t_matrix **matrix);
+int			esc_handler(int key, t_matrix **matrix);
 // size_matrix.c
 void		size_matrix(char *file, int *height, int *width);
 void		get_size(char *av, int *height, int *width);
 int			get_width(char *line);
+char		**line_parser(char *line);
 // init_matrix.c
+t_matrix	**init_fdf(char *file, t_matrix **matrix);
 t_matrix	**alloc_matrix(int height, int width);
 void		init_proj(t_matrix **matrix);
 void		init_data(t_matrix **matrix, int height, int width);
@@ -111,10 +112,4 @@ void		draw_acute_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		draw_obtus_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		init_step(t_imgs *imgs, t_matrix p0, t_matrix p1);
 
-// ******************UTILS
-// utils.c
-void		display_tab2d(char **s, int height);
-void		display_matrix(t_matrix **matrix);
-char		**line_parser(char *line);
-int			close_win(t_matrix **matrix);
 #endif

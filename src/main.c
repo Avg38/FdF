@@ -6,43 +6,55 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:30:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 14:33:19 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:04:53 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	close_win(t_matrix **matrix)
-{
-	mlx_destroy_image(matrix[0][0].mlx, matrix[0][0].imgs.img);
-	mlx_destroy_window(matrix[0][0].mlx, matrix[0][0].win);
-	mlx_destroy_display(matrix[0][0].mlx);
-	free(matrix[0][0].mlx);
-	free_matrix(matrix, matrix[0][0].height);
-	exit (EXIT_SUCCESS);
-	return (0);
-}
+// void	display_matrix(t_matrix **matrix)
+// {
+// 	int	x;
+// 	int	y;
 
-int	esc_handler(int key, t_matrix **matrix)
-{
-	if (key == 65307)
-		close_win(matrix);
-	return (0);
-}
+// 	if (!matrix || !(*matrix) || matrix[0][0].width < 0
+// 		|| matrix[0][0].height < 0)
+// 		ft_exit("Error! display_matrix: matrix is NULL\n",
+// 			matrix, matrix[0][0].height);
+// 	ft_printf(" ");
+// 	x = -1;
+// 	while (++x < matrix[0][0].width)
+// 		(x < 10) ? ft_printf("  %d", x): ft_printf(" %d", x);
+// 	y = -1;
+// 	while (++y < matrix[0][0].height)
+// 	{
+// 		ft_printf("\n%d", y);
+// 		x = -1;
+// 		while (++x < matrix[0][0].width)
+// 		{
+// 			if (!(y >= 10 && x == 0) && matrix[y][x].z < 10)
+// 				ft_printf("  %d", matrix[y][x].z);
+// 			else
+// 				ft_printf(" %d", matrix[y][x].z);
+// 		}
+// 	}
+// }
 
-t_matrix	**init_fdf(char *file, t_matrix **matrix)
+void	check_args(int ac, char *file)
 {
-	int	width;
-	int	height;
+	int	fd;
 
-	height = 0;
-	width = 0;
-	size_matrix(file, &height, &width);
-	matrix = alloc_matrix(height, width);
-	init_data(matrix, height, width);
-	fill_matrix(file, matrix);
-	init_proj(matrix);
-	return (matrix);
+	if (ac == 2)
+	{
+		if (!ft_strnstr(file, ".fdf", 4))
+			ft_exit("Error! \".fdf\" is needed", NULL, 0);
+		fd = open(file, O_RDONLY);
+		if (fd < 1)
+			ft_exit("Error! Bad fd or file empty", NULL, 0);
+		close(fd);
+	}
+	else
+		ft_exit("Notice : ./fdf <maps.fdf>", NULL, 0);
 }
 
 int	main(int ac, char **av)

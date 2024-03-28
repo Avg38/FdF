@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 14:17:06 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:17:34 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ void	init_proj(t_matrix **matrix)
 		matrix[0][0].scale = scale_x;
 	else
 		matrix[0][0].scale = scale_y;
-	matrix[0][0].offset_x = (WIN_W
-			- matrix[0][0].width * matrix[0][0].scale) / 2;
-	matrix[0][0].offset_y = (WIN_H
-			- matrix[0][0].height * matrix[0][0].scale) / 2;
+	matrix[0][0].isometric = 1;
+	matrix[0][0].offset_x = (WIN_W - matrix[0][0].width
+			* matrix[0][0].scale) / 2;
+	matrix[0][0].offset_y = (WIN_H - matrix[0][0].height
+			* matrix[0][0].scale) / 2;
 	matrix[0][0].imgs.x_step = 1;
 	matrix[0][0].imgs.y_step = 1;
 	matrix[0][0].rot_x = -0.52;
@@ -81,5 +82,21 @@ t_matrix	**alloc_matrix(int height, int width)
 		if (!matrix[y])
 			return (ft_exit("malloc matrix element failed", matrix, y), NULL);
 	}
+	y = -1;
+	return (matrix);
+}
+
+t_matrix	**init_fdf(char *file, t_matrix **matrix)
+{
+	int	width;
+	int	height;
+
+	height = 0;
+	width = 0;
+	size_matrix(file, &height, &width);
+	matrix = alloc_matrix(height, width);
+	init_data(matrix, height, width);
+	fill_matrix(file, matrix);
+	init_proj(matrix);
 	return (matrix);
 }

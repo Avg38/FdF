@@ -11,8 +11,7 @@ SRCS	=	src/main.c\
 			src/init/size_matrix.c\
 			src/init/init_matrix.c\
 			src/init/fill_matrix.c\
-			src/init/errors.c\
-			src/utils/utils.c
+			src/init/close.c
 
 SRCS_BONUS	=	src_bonus/main.c\
 			src_bonus/frame/color.c\
@@ -23,15 +22,13 @@ SRCS_BONUS	=	src_bonus/main.c\
 			src_bonus/init/size_matrix.c\
 			src_bonus/init/init_matrix.c\
 			src_bonus/init/fill_matrix.c\
-			src_bonus/init/errors.c\
+			src_bonus/init/close.c\
 			src_bonus/key_manager/manage_key.c\
 			src_bonus/key_manager/do_key1.c\
-			src_bonus/key_manager/do_key2.c\
-			src_bonus/utils/utils.c
+			src_bonus/key_manager/do_key2.c
 
 OBJ_DIR = obj
 OBJ_DIR_BONUS = obj_bonus
-# OBJS	= $(SRCS:.c=.o)
 OBJS	= $(patsubst src/%.c, obj/%.o, $(SRCS))
 OBJS_BONUS	= $(patsubst src_bonus/%.c, obj_bonus/%.o, $(SRCS_BONUS))
 CFLAGS	= -Wall -Wextra -Werror

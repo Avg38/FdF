@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:55:39 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 14:18:12 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:57:19 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	init_proj_map(t_matrix **matrix)
 		while (x < matrix[0][0].width && matrix[y][x].is_valid > 0)
 		{
 			apply_scaling(&matrix[y][x], matrix);
-			apply_rotation(&matrix[y][x], matrix);
+			if (matrix[0][0].isometric == -1)
+				mod_2d(matrix);
+			else
+				apply_rotation(&matrix[y][x], matrix);
 			apply_offset(&matrix[y][x], matrix);
 			x++;
 		}
@@ -61,7 +64,7 @@ int	frame(t_matrix **matrix)
 {
 	init_proj_map(matrix);
 	transform_img(matrix);
-	mlx_put_image_to_window(matrix[0][0].mlx,
-		matrix[0][0].win, matrix[0][0].imgs.img, 0, 0);
+	mlx_put_image_to_window(matrix[0][0].mlx, matrix[0][0].win,
+		matrix[0][0].imgs.img, 0, 0);
 	return (1);
 }

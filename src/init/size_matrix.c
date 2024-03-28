@@ -6,11 +6,24 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:54:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 14:15:32 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:56:44 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/fdf.h"
+
+char	**line_parser(char *line)
+{
+	char	**split;
+
+	if (!line)
+		return (NULL);
+	split = ft_split(line, ' ');
+	if (!split)
+		return (NULL);
+	free(line);
+	return (split);
+}
 
 int	get_width(char *line)
 {

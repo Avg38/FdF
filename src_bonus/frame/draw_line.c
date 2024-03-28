@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:51:29 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/27 15:48:14 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:23:17 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	put_pixel(t_imgs imgs, int x, int y, int color)
 	int	offset;
 
 	offset = (imgs.line_len * y) + (imgs.bits_per_pixel * x / 8);
-	if (x >= 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	if (x >= 0 && x < WIN_W && y > 0 && y < WIN_H)
 		*((int *)(imgs.addr + offset)) = color;
 }
 
@@ -33,8 +33,8 @@ void	draw_acute_slope(t_imgs imgs, t_matrix p0, t_matrix p1)
 			gradient = process_color(nb_steps, imgs.x_diff, p0.color, p1.color);
 		else
 			gradient = p0.color;
-		if (p0.x_proj >= 0 && p0.x_proj < WIDTH
-			&& p0.y_proj >= 0 && p0.y_proj < HEIGHT)
+		if (p0.x_proj >= 0 && p0.x_proj < WIN_W
+			&& p0.y_proj >= 0 && p0.y_proj < WIN_H)
 			put_pixel(imgs, p0.x_proj, p0.y_proj, gradient);
 		p0.x_proj += imgs.x_step;
 		if (imgs.decision <= 0)
@@ -60,8 +60,8 @@ void	draw_obtus_slope(t_imgs imgs, t_matrix p0, t_matrix p1)
 			gradient = process_color(nb_steps, imgs.y_diff, p0.color, p1.color);
 		else
 			gradient = p0.color;
-		if (p0.x_proj >= 0 && p0.x_proj < WIDTH
-			&& p0.y_proj >= 0 && p0.y_proj < HEIGHT)
+		if (p0.x_proj >= 0 && p0.x_proj < WIN_W
+			&& p0.y_proj >= 0 && p0.y_proj < WIN_H)
 			put_pixel(imgs, p0.x_proj, p0.y_proj, gradient);
 		p0.y_proj += imgs.y_step;
 		if (imgs.decision <= 0)
