@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:54:44 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:56:44 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:38:22 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,23 @@ void	get_size(char *file, int *height, int *width)
 	close(fd);
 }
 
-void	size_matrix(char *file, int *height, int *width)
+t_matrix	**set_size_matrix(char *file, int *height, int *width)
 {
+	t_matrix	**matrix;
+	int			y;
+
 	get_size(file, height, width);
 	if (*width <= 0 || *height <= 0)
-		return (ft_exit("get_width or get_height doesn't work", NULL, 0));
+		ft_exit("get_width or get_height doesn't work", NULL, 0);
+	matrix = (t_matrix **)ft_calloc(*height, sizeof(t_matrix *));
+	if (!matrix)
+		ft_exit("malloc matrix failed", NULL, 0);
+	y = -1;
+	while (++y < *height)
+	{
+		matrix[y] = (t_matrix *)ft_calloc(*width + 1, sizeof(t_matrix));
+		if (!matrix[y])
+			ft_exit("malloc matrix element failed", matrix, y);
+	}
+	return (matrix);
 }

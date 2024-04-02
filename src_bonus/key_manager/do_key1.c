@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:39:14 by avialle-          #+#    #+#             */
-/*   Updated: 2024/04/02 11:55:43 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:37:37 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 
 void	center_key(t_matrix **matrix)
 {
-	if (matrix[0][0].isometric == 1)
-	{
-		matrix[0][0].offset_x = (WIN_W
-				- matrix[0][0].width * matrix[0][0].scale) / 2;
-		matrix[0][0].offset_y = (WIN_H
-				- matrix[0][0].height * matrix[0][0].scale) / 2;
-	}
-	else
-	{
-		matrix[0][0].offset_x = (WIN_W
-				- matrix[0][0].width * matrix[0][0].scale) / 2;
-		matrix[0][0].offset_y = (WIN_H
-				- matrix[0][0].height * matrix[0][0].scale) / 2;
-	}
+	matrix[0][0].offset_x = (WIN_W
+			- matrix[0][0].width * matrix[0][0].scale) / 2;
+	matrix[0][0].offset_y = (WIN_H
+			- matrix[0][0].height * matrix[0][0].scale) / 2;
 }
 
 void	isometric_key(t_matrix **matrix)

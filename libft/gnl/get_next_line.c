@@ -6,38 +6,13 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:52:59 by avialle-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:54:35 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:11:02 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-#include <stdio.h>
-char	*extract_the_line(char *line, char *buffer, int len)
-{
-	char	*new_line;
-	int		i;
-	int		j;
-
-	new_line = malloc(sizeof(char) * (len + 1 + ft_strlen_gnl(line)));
-	if (!new_line)
-		return (free(line), NULL);
-	i = -1;
-	while (line[++i])
-		new_line[i] = line[i];
-	free(line);
-	j = 0;
-	while (j < len)
-	{
-		new_line[i] = buffer[j];
-		i++;
-		j++;
-	}
-	new_line[i] = '\0';
-	return (new_line);
-}
-
-size_t	there_is_a_line(char *str)
+size_t	check_newline(char *str)
 {
 	size_t	i;
 
@@ -49,18 +24,40 @@ size_t	there_is_a_line(char *str)
 	return (0);
 }
 
-int	update_gnl(char *newbuffer, char *buffer, char **line)
+char	*extract_line(char *line, char *buffer)
 {
-	int	i;
+	ssize_t	i;
+	size_t	j;
+	size_t	len_buffer;
+	char	*dest;
+
+	len_buffer = ft_strlen_gnl(buffer);
+	dest = malloc((ft_strlen_gnl(line) + len_buffer + 1) * sizeof(char));
+	if (!dest)
+		return (free(line), NULL);
+	i = -1;
+	while (line[++i])
+		dest[i] = line[i];
+	free(line);
+	j = 0;
+	while (j < len_buffer && buffer[j - 1] != '\n')
+		dest[i++] = buffer[j++];
+	dest[i] = 0;
+	return (dest);
+}
+
+ssize_t	update_gnl(char *new_buffer, char *buffer, char **line)
+{
+	ssize_t	i;
 
 	i = 0;
 	while (buffer[i])
 	{
-		newbuffer[i] = buffer[i];
+		new_buffer[i] = buffer[i];
 		i++;
 	}
-	newbuffer[i] = '\0';
-	*line = extract_the_line(*line, newbuffer, ft_strlen_gnl(newbuffer));
+	new_buffer[i] = 0;
+	*line = extract_line(*line, new_buffer);
 	if (!*line)
 		return (-1);
 	return (1);
@@ -68,26 +65,22 @@ int	update_gnl(char *newbuffer, char *buffer, char **line)
 
 char	*run_read(int fd, char *line, char *buffer)
 {
-	int	byte_read;
+	ssize_t	bytes;
 
-	byte_read = 1;
-	while (byte_read > 0)
+	bytes = 1;
+	while (bytes > 0)
 	{
-		printf("etape 1\n");
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes == -1)
 			break ;
-		buffer[byte_read] = 0;
-		printf("etape 2\n");
-		line = extract_the_line(line, buffer, ft_strlen_gnl(buffer));
+		buffer[bytes] = 0;
+		line = extract_line(line, buffer);
 		if (!line)
 			return (NULL);
-		printf("etape 3\n");
-		if ((there_is_a_line(line) > 0 || byte_read == 0) && line[0] != 0)
+		if ((check_newline(line) > 0 || bytes == 0) && line[0] != 0)
 			return (line);
-		printf("etape 4\n");
 	}
-	buffer[0] = '\0';
+	buffer[0] = 0;
 	free(line);
 	return (NULL);
 }
@@ -95,10 +88,10 @@ char	*run_read(int fd, char *line, char *buffer)
 char	*get_next_line(int fd)
 {
 	static t_fd	buffer_memory[MAX_FD];
-	char		*line;
 	char		*buffer;
+	char		*line;
 
-	if (fd < 0 || MAX_FD < 1 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || MAX_FD < 1)
 		return (NULL);
 	line = NULL;
 	line = str_init(line);
@@ -107,30 +100,31 @@ char	*get_next_line(int fd)
 	buffer = buffer_init(fd, buffer_memory);
 	if (!buffer)
 		return (NULL);
-	if (update_gnl(buffer, &buffer[there_is_a_line(buffer)], &line) < 0)
+	if (update_gnl(buffer, &buffer[check_newline(buffer)], &line) < 0)
 		return (free(line), NULL);
-	if (there_is_a_line(line) > 0)
+	if (check_newline(buffer) > 0)
 		return (line);
 	return (run_read(fd, line, buffer));
 }
 
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int main(int argc, char **argv)
-{
-	char	*line;
-	int		fd;
+// int main(int argc, char **argv)
+// {
+// 	char	*line;
+// 	int		fd;
 
-	if (argc != 2)
-		return 1;
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return 1;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("line = %s", line);
-		free(line);
-	}
-	close(fd);
-	return 0;
-}
+// 	if (argc != 2)
+// 		return 1;
+// 	fd = open(argv[1], O_RDONLY);
+// 	if (fd == -1)
+// 		return 1;
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("line = %s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return 0;
+// }

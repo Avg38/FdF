@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:17:28 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:56:36 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:34:18 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	fill_data(char **line, t_matrix **matrix, int y)
 		matrix[y][x].y = y;
 		matrix[y][x].x = x;
 		matrix[y][x].z = ft_atoi(line[x]);
+		if (matrix[y][x].z < -10000 || matrix[y][x].z > 10000)
+			ft_exit("Values are too high", matrix, matrix[0][0].height);
 		matrix[y][x].color = ft_atoi_base(get_color(line[x]),
 				"0123456789abcdef");
 		if (matrix[y][x].color != -1 && matrix[y][x].color != 0xFFFFFF)

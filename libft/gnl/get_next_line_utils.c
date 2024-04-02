@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:06:32 by avialle-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:45:38 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:10:15 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ size_t	ft_strlen_gnl(char *str)
 	return (i);
 }
 
-char	*str_init(char *s)
+char	*str_init(char	*line)
 {
-	s = (char *)malloc(sizeof(char) * 1);
-	if (!s)
+	line = (char *)malloc(1 * sizeof(char));
+	if (!line)
 		return (NULL);
-	s[0] = '\0';
-	return (s);
+	line[0] = 0;
+	return (line);
 }
 
 char	*buffer_init(int fd, t_fd *buffer_memory)

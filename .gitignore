@@ -54,5 +54,6 @@ dkms.conf
 # Others
 /sources
 fdf
+fdf_bonus
 fdf_linux
 .vscode/settings.json

@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:59:43 by avialle-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:18:59 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:13:18 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_printf(const char *str, ...);
 
 /*--------------------------gnl--------------------------*/
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 42
 # endif
 
 # ifndef MAX_FD

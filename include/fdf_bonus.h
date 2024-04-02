@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:14:50 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:29:28 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WIN_H 1080
 # define WIN_W 1920
-# define SCALE_FACTOR 0.5
+# define SCALE_FACTOR 0.85
 
 typedef struct s_imgs
 {
@@ -41,13 +41,12 @@ typedef struct s_imgs
 	int		diagonal;
 }	t_imgs;
 
-typedef struct s_argb
+typedef struct s_rgb
 {
-	unsigned char	a;
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-}	t_argb;
+}	t_rgb;
 
 typedef struct s_matrix
 {
@@ -108,13 +107,11 @@ void		free_matrix(t_matrix **matrix, int height);
 void		ft_exit(char *msg, t_matrix **matrix, int height);
 int			close_win(t_matrix **matrix);
 // size_matrix.c
-void		size_matrix(char *file, int *height, int *width);
 t_matrix	**set_size_matrix(char *file, int *height, int *width);
 void		get_size(char *file, int *height, int *width);
 int			get_width(char *line);
 char		**line_parser(char *line);
 // init_matrix.c
-t_matrix	**alloc_matrix(int height, int width);
 void		init_proj(t_matrix **matrix);
 void		init_data(t_matrix **matrix, int height, int width, char *file);
 t_imgs		init_new_img(t_matrix	**matrix);
@@ -160,9 +157,8 @@ void		offset_key(int key, t_matrix **matrix);
 void		scale_key(int key, t_matrix **matrix);
 void		depth_key(int key, t_matrix **matrix);
 // color.c
-int			strhexa_to_colorint(char *strhexa);
-t_argb		create_argb(int color);
-int			create_color_gradient(float delta, t_argb color1, t_argb color2);
+t_rgb		create_rgb(int color);
+int			create_color_gradient(float delta, t_rgb color1, t_rgb color2);
 int			process_color(int curr_steps, int tot_steps,
 				int color_ini, int color_end);
 
