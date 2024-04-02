@@ -52,8 +52,6 @@ Mkfile.old
 dkms.conf
 
 # Others
-/minilibx-linux
-/mlx
 /sources
 fdf
 fdf_linux
