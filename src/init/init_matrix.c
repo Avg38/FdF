@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 16:17:34 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:58:21 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	init_proj(t_matrix **matrix)
 		matrix[0][0].scale = scale_x;
 	else
 		matrix[0][0].scale = scale_y;
-	matrix[0][0].isometric = 1;
 	matrix[0][0].offset_x = (WIN_W - matrix[0][0].width
 			* matrix[0][0].scale) / 2;
 	matrix[0][0].offset_y = (WIN_H - matrix[0][0].height

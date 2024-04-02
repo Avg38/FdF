@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:18:18 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:34:09 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:14:50 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ enum
 	DOWN_Z = 65366,
 	G = 103,
 	C = 99,
-	V = 118
+	X = 120
 };
 
-// ******************MAIN
+// --------------------- MAIN ---------------------
 void		check_args(int ac, char *file);
 t_matrix	**init_fdf(char *file, t_matrix **matrix);
 
-// ******************INIT
+// --------------------- INIT ---------------------
 // close.c
 void		free_2d(char **str, int len);
 void		free_matrix(t_matrix **matrix, int height);
@@ -109,29 +109,28 @@ void		ft_exit(char *msg, t_matrix **matrix, int height);
 int			close_win(t_matrix **matrix);
 // size_matrix.c
 void		size_matrix(char *file, int *height, int *width);
+t_matrix	**set_size_matrix(char *file, int *height, int *width);
 void		get_size(char *file, int *height, int *width);
 int			get_width(char *line);
 char		**line_parser(char *line);
 // init_matrix.c
 t_matrix	**alloc_matrix(int height, int width);
 void		init_proj(t_matrix **matrix);
-void		init_data(t_matrix **matrix, int height, int width);
+void		init_data(t_matrix **matrix, int height, int width, char *file);
 t_imgs		init_new_img(t_matrix	**matrix);
 // fill_matrix.c
 void		fill_matrix(char *file, t_matrix **matrix);
 void		fill_data(char **line, t_matrix **matrix, int y);
 void		fill_color(t_matrix **matrix);
 
-// ******************FRAME
+// --------------------- FRAME ---------------------
 // create_frame.c
 int			frame(t_matrix **matrix);
 void		transform_img(t_matrix **matrix);
 void		init_proj_map(t_matrix **matrix);
 // apply_params.c
 void		apply_scaling(t_matrix *point, t_matrix **matrix);
-void		apply_isometric(t_matrix *point);
 void		apply_offset(t_matrix *point, t_matrix **matrix);
-void		mod_2d(t_matrix **matrix);
 // apply_rotation.c
 void		apply_rotation(t_matrix *point, t_matrix **matrix);
 void		apply_rot_x(t_matrix *point, double cos_a, double sin_a);
@@ -144,7 +143,7 @@ void		draw_acute_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		draw_obtus_slope(t_imgs imgs, t_matrix p0, t_matrix p1);
 void		init_step(t_imgs *imgs, t_matrix p0, t_matrix p1);
 
-// ******************KEY_MANAGER
+// --------------------- KEY_MANAGER ---------------------
 // manage_key.c
 int			is_key(int key);
 void		do_key(int key, t_matrix **matrix);

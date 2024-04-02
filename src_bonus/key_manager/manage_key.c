@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 10:35:35 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 16:06:26 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:55:53 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_key(int key)
 		|| key == RIGHT || key == PLUS || key == MINUS
 		|| key == STAR || key == DIV || key == SPACE
 		|| key == UP_Z || key == DOWN_Z || key == G || key == C
-		|| key == V);
+		|| key == X);
 }
 
 void	new_image(t_matrix **matrix)

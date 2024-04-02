@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:39:14 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:23:56 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:55:43 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	do_key(int key, t_matrix **matrix)
 		center_key(matrix);
 	if (key == G)
 		gradient_key(matrix);
-	if (key == V)
+	if (key == X)
 		diagonal_key(matrix);
 	if (key == SPACE)
 		isometric_key(matrix);

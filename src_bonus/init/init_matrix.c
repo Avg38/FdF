@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:56:19 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 16:18:16 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:26:15 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ t_imgs	init_new_img(t_matrix	**matrix)
 	return (img);
 }
 
-void	init_data(t_matrix **matrix, int height, int width)
+void	init_data(t_matrix **matrix, int height, int width, char *file)
 {
 	matrix[0][0].height = height;
 	matrix[0][0].width = width;
 	matrix[0][0].mlx = mlx_init();
 	if (!matrix[0][0].mlx)
 		ft_exit("Error matrix[0][0].mlx\n", matrix, matrix[0][0].height);
-	matrix[0][0].win = mlx_new_window(matrix[0][0].mlx, WIN_W, WIN_H, "FDF");
+	matrix[0][0].win = mlx_new_window(matrix[0][0].mlx, WIN_W, WIN_H, file);
 	if (!matrix[0][0].win)
 		ft_exit("Error matrix[0][0].win\n", matrix, matrix[0][0].height);
 	matrix[0][0].imgs = init_new_img(matrix);
@@ -69,24 +69,24 @@ void	init_data(t_matrix **matrix, int height, int width)
 		ft_exit("Error mlx_put_img_to_win\n", matrix, matrix[0][0].height);
 }
 
-t_matrix	**alloc_matrix(int height, int width)
-{
-	t_matrix	**matrix;
-	int			y;
+// t_matrix	**alloc_matrix(int height, int width)
+// {
+// 	t_matrix	**matrix;
+// 	int			y;
 
-	matrix = (t_matrix **)ft_calloc(height, sizeof(t_matrix *));
-	if (!matrix)
-		return (ft_exit("malloc matrix failed", NULL, 0), NULL);
-	y = -1;
-	while (++y < height)
-	{
-		matrix[y] = (t_matrix *)ft_calloc(width + 1, sizeof(t_matrix));
-		if (!matrix[y])
-			return (ft_exit("malloc matrix element failed", matrix, y), NULL);
-	}
-	y = -1;
-	return (matrix);
-}
+// 	matrix = (t_matrix **)ft_calloc(height, sizeof(t_matrix *));
+// 	if (!matrix)
+// 		return (ft_exit("malloc matrix failed", NULL, 0), NULL);
+// 	y = -1;
+// 	while (++y < height)
+// 	{
+// 		matrix[y] = (t_matrix *)ft_calloc(width + 1, sizeof(t_matrix));
+// 		if (!matrix[y])
+// 			return (ft_exit("malloc matrix element failed", matrix, y), NULL);
+// 	}
+// 	y = -1;
+// 	return (matrix);
+// }
 
 t_matrix	**init_fdf(char *file, t_matrix **matrix)
 {
@@ -95,9 +95,13 @@ t_matrix	**init_fdf(char *file, t_matrix **matrix)
 
 	height = 0;
 	width = 0;
-	size_matrix(file, &height, &width);
-	matrix = alloc_matrix(height, width);
-	init_data(matrix, height, width);
+	// size_matrix(file, &height, &width);
+	// matrix = alloc_matrix(height, width);
+	ft_printf("init_fdf\n");
+	matrix = set_size_matrix(file, &height, &width);
+	ft_printf("set_size_matrix\n");
+	init_data(matrix, height, width, file);
+	ft_printf("init_data\n");
 	fill_matrix(file, matrix);
 	init_proj(matrix);
 	return (matrix);

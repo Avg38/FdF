@@ -6,7 +6,7 @@
 /*   By: avialle- <avialle-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:55:39 by avialle-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:57:19 by avialle-         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:57:07 by avialle-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	init_proj_map(t_matrix **matrix)
 		while (x < matrix[0][0].width && matrix[y][x].is_valid > 0)
 		{
 			apply_scaling(&matrix[y][x], matrix);
-			if (matrix[0][0].isometric == -1)
-				mod_2d(matrix);
-			else
-				apply_rotation(&matrix[y][x], matrix);
+			apply_rotation(&matrix[y][x], matrix);
 			apply_offset(&matrix[y][x], matrix);
 			x++;
 		}
